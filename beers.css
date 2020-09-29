@@ -52,7 +52,7 @@ summary h2 {
 
 .beer img {
     grid-area: b;
-    max-width: 100%;
+    max-width: 90%;
 }
 
 details {
