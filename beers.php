@@ -12,8 +12,12 @@ FROM `beers`
 
 $query = $db -> prepare($queryString);
 $query->execute();
-$beers = $query->fetch();
+$beers = $query->fetchAll();
 
+
+foreach ($beers as $beer) {
+    $letters[] = $beer['beer'][0];
+}
 
 ?>
 
@@ -22,17 +26,28 @@ $beers = $query->fetch();
 <html lang='en'>
 	<head>
 		<title>A world of beers</title>
-		<link rel='stylesheet' type= 'text/css' href='normalize.css'>
+        <link href='https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Mansalva&display=swap' rel='stylesheet'>
+        <link rel='stylesheet' type= 'text/css' href='normalize.css'>
 		<link rel='stylesheet' type= 'text/css' href='beers.css'>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<meta charset='UTF-8'>
 	</head>
 	<body>
 		<header>
-
+            <h1>A world of beer</h1>
+            <h3>(starting in the UK)</h3>
 		</header>
 		<main>
+            <?php if (isset($letters)) {
+                $letters = array_unique($letters);
+                foreach ($letters as $letter): ?>
+                    <section class='letter'>
+                        <h1><?php echo $letter ?></h1>
+                        <?php foreach ($beers as $beer): ?>
 
+                        <?php endforeach; ?>
+                    </section>
+                <?php endforeach; }?>
 		</main>
 		<footer>
 
