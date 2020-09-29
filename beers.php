@@ -14,7 +14,6 @@ $query = $db -> prepare($queryString);
 $query->execute();
 $beers = $query->fetchAll();
 
-
 foreach ($beers as $beer) {
     $letters[] = $beer['beer'][0];
 }
@@ -43,11 +42,31 @@ foreach ($beers as $beer) {
                 foreach ($letters as $letter): ?>
                     <section class='letter'>
                         <h1><?php echo $letter ?></h1>
-                        <?php foreach ($beers as $beer): ?>
-
-                        <?php endforeach; ?>
+                        <div class ='beers'>
+                            <?php foreach ($beers as $beer):
+                                if ($beer['beer'][0] === $letter) {
+                            ?>
+                                <article class='beer'>
+                                    <summary>
+                                        <h2><?php echo $beer['beer']; ?></h2>
+                                        <?php echo $beer['brewery']; ?> -
+                                        <?php echo $beer['county']; ?>,
+                                        <?php echo $beer['country']; ?>
+                                        <br>
+                                        <a href='<?php echo $beer['url'] ?>'>Visit website</a>
+                                    </summary>
+                                    <img src='<?php echo $beer['image'] ?>' alt='Beer photo'>
+                                    <details>
+                                        <br>
+                                        <?php echo "Style: {$beer['style']}"; ?>
+                                        <br>
+                                        <?php echo "ABV: {$beer['abv']}"; ?>
+                                    </details>
+                                </article>
+                            <?php } endforeach; ?>
+                        </div>
                     </section>
-                <?php endforeach; }?>
+                <?php endforeach; } ?>
 		</main>
 		<footer>
 

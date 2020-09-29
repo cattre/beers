@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas:
+    '. a .'
+    '. b .';
+    text-align: center;
+}
+
+header h1 {
+    grid-area: a;
+    margin-bottom: 0;
+    font-family: 'Mansalva', cursive;
+    font-size: 50px;
+}
+
+header h3 {
+    grid-area: b;
+    margin-top: 0;
+    font-family: 'Architects Daughter', cursive;
+}
+
+main {
+    font-family: 'Architects Daughter', cursive;
+}
+
+.letter h1 {
+    margin-left: 20px;
+}
+
+.beer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    'a a'
+    'b c';
+    margin: 50px;
+}
+
+summary {
+    grid-area: a;
+    margin-bottom: 50px;
+}
+
+summary h2 {
+    margin-bottom: 0;
+}
+
+.beer img {
+    grid-area: b;
+    max-width: 100%;
+}
+
+details {
+    grid-area: c;
+    font-size: 25px;
+}
