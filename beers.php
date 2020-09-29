@@ -4,7 +4,7 @@ require_once 'functions.php';
 
 $db = connectDB();
 $beers = queryDB($db, $queryString);
-$letters = getLetters($beers);
+$letters = getLetters($beers, 'beer');
 
 ?>
 

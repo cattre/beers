@@ -22,11 +22,11 @@ function queryDB(object $db, string $query) {
     return $query->fetchAll();
 }
 
-function getLetters(array $beers) :array {
+function getLetters(array $array, string $value) :array {
     $letters = [];
-    foreach ($beers as $beer) {
-        $letters[] = $beer['beer'][0];
+    foreach ($array as $item) {
+        $letters[] = $item[$value][0];
     }
     asort($letters);
-    return array_unique($letters);
+    return array_values(array_unique($letters));
 }
