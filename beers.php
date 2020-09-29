@@ -20,6 +20,7 @@ $letters = getLetters($beers, 'beer');
 	</head>
 	<body>
         <div class='bg'></div>
+        <div class='bggif'></div>
 		<header>
             <h1>A world of beer</h1>
             <h3>(starting in the UK)</h3>
