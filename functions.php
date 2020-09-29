@@ -23,8 +23,10 @@ function queryDB(object $db, string $query) {
 }
 
 function getLetters(array $beers) :array {
+    $letters = [];
     foreach ($beers as $beer) {
         $letters[] = $beer['beer'][0];
     }
-    return $letters;
+    asort($letters);
+    return array_unique($letters);
 }

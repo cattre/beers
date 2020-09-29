@@ -19,13 +19,13 @@ $letters = getLetters($beers);
 		<meta charset='UTF-8'>
 	</head>
 	<body>
+        <div class='bg'></div>
 		<header>
             <h1>A world of beer</h1>
             <h3>(starting in the UK)</h3>
 		</header>
 		<main>
             <?php if (isset($letters)) {
-                $letters = array_unique($letters);
                 foreach ($letters as $letter): ?>
                     <section class='letter'>
                         <h1><?php echo $letter ?></h1>
@@ -40,7 +40,7 @@ $letters = getLetters($beers);
                                         <?php echo $beer['county']; ?>,
                                         <?php echo $beer['country']; ?>
                                         <br>
-                                        <a href='<?php echo $beer['url'] ?>'>Visit website</a>
+                                        <a target='_blank' href='<?php echo $beer['url'] ?>'>Visit website</a>
                                     </summary>
                                     <img src='<?php echo $beer['image'] ?>' alt='Beer photo'>
                                     <details>

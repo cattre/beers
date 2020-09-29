@@ -2,13 +2,33 @@
     box-sizing: border-box;
 }
 
+body, html {
+    height: 100%;
+    overflow: auto;
+}
+
+.bg {
+    background-image: url('media/beer_bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
 header {
+    position: fixed;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-areas:
     '. a .'
     '. b .';
     text-align: center;
+    background-color: #FFFFFF;
 }
 
 header h1 {
@@ -25,14 +45,17 @@ header h3 {
 }
 
 main {
+    padding: 150px;
     font-family: 'Architects Daughter', cursive;
 }
 
 .letter h1 {
-    margin-left: 20px;
+    text-align: center;
+    font-size: 50px;
 }
 
 .beer {
+    background-color: #FFFFFF;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -44,13 +67,17 @@ main {
 summary {
     grid-area: a;
     margin-bottom: 50px;
+    text-align: center;
+    font-size: 25px;
 }
 
 summary h2 {
+    font-size: 40px;
     margin-bottom: 0;
 }
 
 .beer img {
+    padding: 20px;
     grid-area: b;
     max-width: 90%;
 }
