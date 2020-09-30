@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+    list-style-type: none;
+}
+
+body, html {
+    height: 100%;
+    overflow: auto;
+}
+
+.bg {
+    background-image: url('media/bubbles.gif'), url('media/beer_bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -2;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 6fr 2fr;
+    grid-template-areas:
+    'a b c'
+    'd e c';
+    align-items: center;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+header h1 {
+    grid-area: b;
+    margin-bottom: 0;
+    font-family: 'Mansalva', cursive;
+    font-size: 50px;
+}
+
+header h3 {
+    grid-area: e;
+    margin-top: 0;
+    font-family: 'Architects Daughter', cursive;
+}
+
+input (type='submit') {
+    display: block;
+    height: 50px;
+    width: 100%;
+}
+
+#addBeerButton {
+    grid-area: c;
+}
+
+.addBeerPage {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 250px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: grid;
+    grid-template-columns: 2fr 4fr 2fr;
+    grid-template-areas:
+    '. a .'
+    '. b .'
+    '. b .'
+    '. b .'
+    '. b .'
+    '. b .'
+    '. c .';
+    background-color: #FFFFFF;
+    font-family: 'Architects Daughter', cursive;
+}
+
+.addBeerPage h1 {
+    grid-area: a;
+}
+
+#addBeerForm {
+    grid-area: b;
+}
+
+#addBeerForm input, select {
+    display: block;
+    height: 50px;
+    width: 100%;
+}
+
+.addBeer .buttons {
+    grid-area: c;
+    display: flex;
+}
+
+main {
+    padding-top: 150px;
+    font-family: 'Architects Daughter', cursive;
+}
+
+.letter h1 {
+    text-align: center;
+    font-size: 50px;
+}
+
+.beer {
+    background-color: #FFFFFF;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    'a a a'
+    '. b .'
+    '. c .';
+    margin: 100px;
+}
+
+.summary {
+    grid-area: a;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.summary a {
+    color: #1e90FF;
+}
+
+.summary h2 {
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+.beer img {
+    grid-area: b;
+    max-width: 100%;
+    text-align: center;
+}
+
+details {
+    grid-area: c;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+}

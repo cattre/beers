@@ -12,16 +12,6 @@ function connectDB() :object {
     return $db;
 }
 
-// Returns all beers, any linked breweries, and any linked locations
-$beersQuery = '
-    SELECT `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`
-    FROM `beers`
-        LEFT JOIN `breweries`
-        ON `beers`.`brewery_id` = `breweries`.`id`
-        LEFT JOIN `locations`
-        ON `breweries`.`location_id` = `locations`.`id`;
-';
-
 /**
  * Queries database and returns results
  *
@@ -76,3 +66,4 @@ function getSummary (array $beer) :string {
         return '';
     }
 }
+

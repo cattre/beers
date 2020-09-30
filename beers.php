@@ -1,16 +1,7 @@
 <?php
 
-require_once 'functions.php';
-
-// Create db connection
-$db = connectDB();
-// Query db for beers
-$beers = queryDB($db, $beersQuery);
-// Get section letters
-$letters = getLetters($beers, 'beer');
-
-$formVisibility = false;
-$mainVisibility = true;
+require 'functions.php';
+require 'code.php';
 
 ?>
 
@@ -20,7 +11,7 @@ $mainVisibility = true;
 		<title>A world of beers</title>
         <link href='https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Mansalva&display=swap' rel='stylesheet'>
         <link rel='stylesheet' type= 'text/css' href='normalize.css'>
-		<link rel='stylesheet' type= 'text/css' href='beers.css'>
+		<link rel='stylesheet' type= 'text/css' href='styling.css'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<meta charset='UTF-8'>
 	</head>
@@ -29,23 +20,31 @@ $mainVisibility = true;
 		<header>
             <h1>A world of beer</h1>
             <h3>(starting in the UK)</h3>
-		</header>
+            <?php if (!$formVisibility) { ?>
+                <form id='addBeerButton' method='post'>
+                    <input type='submit' name= 'addBeer' value='Add a beer'>
+                </form>
+            <?php } ?>
+        </header>
         <?php if ($formVisibility) { ?>
-            <section class='addBeer'>
+            <section class='addBeerPage'>
                 <h1>Add a new beer</h1>
-                <form method="post">
+                <form id='addBeerForm' method='post'>
                     <label>Name <input type='text' name='beer'></label>
                     <label>Brewery <select name='brewery'>
-                        <option>
-                            Brewery 1
-                        </option>
+                        <option name='default' selected='selected'>Please choose</option>
+                        <?php foreach ($breweries as $brewery): ?>
+                            <option>
+                                <?php echo $brewery['brewery']; ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select></label>
                     <label>Style <input type='text' name='style'></label>
                     <label>ABV <input type='number' name='abv'></label>
                     <label>Photo <input type='file' name='photo'></label>
                     <div class='buttons'>
-                        <input type='submit' value='Cancel'>
-                        <input type='submit' value='Save'>
+                        <input type='submit' name='cancel' value='Cancel'>
+                        <input type='submit' name='save' value='Save'>
                     </div>
                 </form>
             </section>
