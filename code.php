@@ -33,6 +33,18 @@ $addBeerQuery = '
     VALUES (:beer, :brewery, :beerstyle, :abv, :photo);
 ';
 
+$countiesQuery = '
+    SELECT DISTINCT `county`, `id`
+    FROM `locations`
+    ORDER BY `county` ASC;
+';
+
+$countriesQuery = '
+    SELECT DISTINCT `country`, `id`
+    FROM `locations`
+    ORDER BY `country` ASC;
+';
+
 // Create db connection
 $db = connectDB();
 // Query db for beers
@@ -43,29 +55,55 @@ $letters = getLetters($beers, 'beer');
 $breweries = queryDB($db, $breweriesQuery);
 // Get styles
 $styles = queryDB($db, $stylesQuery);
+// Get counties
+$counties = queryDB($db, $countiesQuery);
+// Get countries
+$countries = queryDB($db, $countriesQuery);
 
 if (isset($_POST['addBeer'])) {
     $beerFormVisibility = true;
     $mainVisibility = false;
+    $breweryFormVisibility = false;
 }
 
 if (isset($_POST['back'])) {
     $beerFormVisibility = false;
     $mainVisibility = true;
+    $breweryFormVisibility = false;
 }
 
-if (isset($_POST['save'])) {
+if (isset($_POST['saveBeer'])) {
     if (empty($_POST['beer'])) {
         $nameError = 'Please enter a name';
         $beerFormVisibility = true;
         $mainVisibility = false;
+        $breweryFormVisibility = false;
     } else {
         addBeer($db, $addBeerQuery);
         $beers = queryDB($db, $getBeersQuery);
         $beerFormVisibility = false;
         $mainVisibility = true;
+        $breweryFormVisibility = false;
         if (!empty($targetFile)) {
             require_once 'upload.php';
         }
     }
+}
+
+if (isset($_POST['addBrewery'])) {
+    $beerFormVisibility = false;
+    $mainVisibility = false;
+    $breweryFormVisibility = true;
+}
+
+if (isset($_POST['backOne'])) {
+    $beerFormVisibility = true;
+    $mainVisibility = false;
+    $breweryFormVisibility = false;
+}
+
+if (isset($_POST['saveBrewery'])) {
+    $beerFormVisibility = true;
+    $mainVisibility = false;
+    $breweryFormVisibility = false;
 }

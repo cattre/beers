@@ -1,6 +1,5 @@
 <?php
 
-//require_once 'functions.php';
 require_once 'code.php';
 
 ?>
@@ -26,52 +25,50 @@ require_once 'code.php';
                 </form>
             <?php } ?>
         </header>
-        <?php if ($beerFormVisibility) { ?>
-            <section class='addBeerPage'>
-                <div class='addBeerContainer'>
-                    <h1>Add a new beer</h1>
-                    <form id='addBeerForm' method='post' enctype="multipart/form-data" action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
-                        <label>Name (required)<input type='text' name='beer'></label>
+        <?php if ($breweryFormVisibility) { ?>
+            <section class='addPage'>
+                <div class='addContainer'>
+                    <h1>Add a new brewery</h1>
+                    <form class='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                        <label>Name (required)<input type='text' name='brewery'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <br><br>
-                        <label>Brewery <select name='brewery'>
+                        <label>County <select name='county'>
                             <option value='' selected hidden>
-                                Select brewery
+                                Select county
                             </option>
-                            <?php foreach ($breweries as $brewery): ?>
-                                <option value='<?php echo $brewery['id']; ?>'>
-                                    <?php echo $brewery['brewery']; ?>
+                            <?php foreach ($counties as $county): ?>
+                                <option value='<?php echo $county['id']; ?>'>
+                                    <?php echo $county['county']; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select></label>
                         <br><br>
-                        <label>Style <select name='style'>
+                        <label>Country <select name='country'>
                             <option value='' selected hidden>
-                                Select style
+                                Select county
                             </option>
-                            <?php foreach ($styles as $style): ?>
-                                <option value='<?php echo $style['style']; ?>'>
-                                    <?php echo $style['style']; ?>
+                            <?php foreach ($countries as $country): ?>
+                                <option value='<?php echo $country['country']; ?>'>
+                                    <?php echo $country['country']; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select></label>
                         <br><br>
-                        <label>ABV <input type='number' min='0' max='20' step='any' name='abv'></label>
-                        <br><br>
-                        <label>Photo <input type='file' name='photo'></label>
+                        <label>URL <input type='url' name='url'></label>
                         <div class='formButtons'>
-                            <button type='submit' name='back' value='back'>Back to list</button>
-                            <button type='submit' name='save' value='save'>Save</button>
+                            <button type='submit' name='backOne' value='backOne'>Back</button>
+                            <button type='submit' name='saveBrewery' value='saveBrewery'>Save</button>
                         </div>
                     </form>
                 </div>
             </section>
         <?php } ?>
-        <?php if ($breweryFormVisibility) { ?>
-            <section class='addBeerPage'>
-                <div class='addBeerContainer'>
+        <?php if ($beerFormVisibility) { ?>
+            <section class='addPage'>
+                <div class='addContainer'>
                     <h1>Add a new beer</h1>
-                    <form id='addBeerForm' method='post' enctype="multipart/form-data" action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                    <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
                         <label>Name (required)<input type='text' name='beer'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <br><br>
@@ -85,6 +82,7 @@ require_once 'code.php';
                                     </option>
                                 <?php endforeach; ?>
                             </select></label>
+                        <button type='submit' name='addBrewery' value='addBrewery'>Add new brewery</button>
                         <br><br>
                         <label>Style <select name='style'>
                                 <option value='' selected hidden>
@@ -102,7 +100,7 @@ require_once 'code.php';
                         <label>Photo <input type='file' name='photo'></label>
                         <div class='formButtons'>
                             <button type='submit' name='back' value='back'>Back to list</button>
-                            <button type='submit' name='save' value='save'>Save</button>
+                            <button type='submit' name='saveBeer' value='saveBeer'>Save</button>
                         </div>
                     </form>
                 </div>

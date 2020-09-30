@@ -66,44 +66,40 @@ button:hover {
     font-size: 25px;
 }
 
-.addBeerPage {
+.addPage {
     display: flex;
     justify-content: center;
     margin-top: 200px;
 }
 
-.addBeerContainer {
+.addContainer {
     width: 50vw;
     padding: 50px;
     display: grid;
     grid-template-areas:
     '. a .'
     '. b .'
-    '. b .'
-    '. b .'
-    '. b .'
-    '. b .'
     '. c .';
     font-family: 'Architects Daughter', cursive;
     background-color: #FFFFFF;
 }
 
-.addBeerContainer h1 {
+.addContainer h1 {
     grid-area: a;
 }
 
-#addBeerForm {
+#addForm {
     grid-area: b;
 }
 
-#addBeerForm input, select {
+#addForm input, select {
     display: block;
     height: 50px;
     width: 100%;
     transition-duration: 0.4s;
 }
 
-#addBeerForm input:hover, select:hover {
+#addForm input:hover, select:hover {
     border-color: #33cc33;
 }
 
@@ -125,13 +121,13 @@ button:hover {
     font-size: 20px;
 }
 
-button[name='back'] {
+button[name='back'], button[name='backOne'] {
     background-color: #FFFFFF;
     border-color: #FF0000;
     color: #FF0000;
 }
 
-button[name='save'] {
+button[name='saveBeer'], button[name='saveBrewery'] {
     background-color: #33cc33;
     border-color: #33cc33;
     color: #FFFFFF;
