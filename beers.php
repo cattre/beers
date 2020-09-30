@@ -23,7 +23,6 @@ $letters = getLetters($beers, 'beer');
 	</head>
 	<body>
         <div class='bg'></div>
-        <div class='bggif'></div>
 		<header>
             <h1>A world of beer</h1>
             <h3>(starting in the UK)</h3>
@@ -39,12 +38,12 @@ $letters = getLetters($beers, 'beer');
                                 if ($beer['beer'][0] === $letter) {
                             ?>
                                 <article class='beer'>
-                                    <summary>
+                                    <div class='summary'>
                                         <h2><?php echo $beer['beer']; ?></h2>
-                                        <?php getSummary($beer)?>
+                                        <?php echo getSummary($beer)?>
                                         <br>
                                         <a target='_blank' href='<?php echo $beer['url'] ?>'>Visit website</a>
-                                    </summary>
+                                    </div>
                                     <img src='<?php echo $beer['image'] ?>' alt='Beer photo'>
                                     <details>
                                         <br>

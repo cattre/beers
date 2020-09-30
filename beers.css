@@ -67,18 +67,18 @@ main {
     margin: 100px;
 }
 
-summary {
+.summary {
     grid-area: a;
     margin-bottom: 50px;
     text-align: center;
     font-size: 25px;
 }
 
-summary a {
+.summary a {
     color: #1e90FF;
 }
 
-summary h2 {
+.summary h2 {
     font-size: 40px;
     margin-bottom: 0;
 }
