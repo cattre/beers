@@ -30,24 +30,27 @@ $mainVisibility = true;
             <h1>A world of beer</h1>
             <h3>(starting in the UK)</h3>
 		</header>
-        <section class='addBeer'>
-            <h1>Add a new beer</h1>
-            <form method="post">
-                <label>Name <input type='text' name='beer'></label>
-                <label>Brewery <select name='brewery'>
-                    <option>
-                        Brewery 1
-                    </option>
-                </select></label>
-                <label>Style <input type='text' name='style'></label>
-                <label>ABV <input type='number' name='abv'></label>
-                <label>Photo <input type='file' name='photo'></label>
-                <div class='buttons'>
-                    <input type='submit' value='Cancel'>
-                    <input type='submit' value='Save'>
-                </div>
-            </form>
-        </section>
+        <?php if ($formVisibility) { ?>
+            <section class='addBeer'>
+                <h1>Add a new beer</h1>
+                <form method="post">
+                    <label>Name <input type='text' name='beer'></label>
+                    <label>Brewery <select name='brewery'>
+                        <option>
+                            Brewery 1
+                        </option>
+                    </select></label>
+                    <label>Style <input type='text' name='style'></label>
+                    <label>ABV <input type='number' name='abv'></label>
+                    <label>Photo <input type='file' name='photo'></label>
+                    <div class='buttons'>
+                        <input type='submit' value='Cancel'>
+                        <input type='submit' value='Save'>
+                    </div>
+                </form>
+            </section>
+        <?php } ?>
+        <?php if ($mainVisibility) { ?>
         <main>
             <?php if (isset($letters)) {
                 foreach ($letters as $letter): ?>
@@ -78,6 +81,7 @@ $mainVisibility = true;
                     </section>
                 <?php endforeach; } ?>
 		</main>
+        <?php } ?>
 		<footer>
 
 		</footer>
