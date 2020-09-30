@@ -41,14 +41,19 @@ function queryDB(object $db, string $query) :array {
 }
 
 /**
- * @param array  $array
+ * Iterates through database items to get section letters
+ *
+ * @param array  $dbArray
+ *                       Database array
  * @param string $value
+ *                     Value to use for section letters
  *
  * @return array
+ *              Array of section letters
  */
-function getLetters(array $array, string $value) :array {
+function getLetters(array $dbArray, string $value) :array {
     $letters = [];
-    foreach ($array as $item) {
+    foreach ($dbArray as $item) {
         $letters[] = $item[$value][0];
     }
     asort($letters);
