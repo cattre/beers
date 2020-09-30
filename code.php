@@ -1,7 +1,11 @@
 <?php
 
-$formVisibility = false;
+require_once 'functions.php';
+
+$beerFormVisibility = false;
+$breweryFormVisibility = false;
 $mainVisibility = true;
+$nameError = '';
 
 // Returns all beers, any linked breweries, and any linked locations
 $getBeersQuery = '
@@ -26,7 +30,7 @@ $stylesQuery = '
 
 $addBeerQuery = '
     INSERT INTO `beers` (`name`, `brewery_id`, `style`, `abv`, `image`)
-    VALUES (:beer, :brewery, :beerstyle, :abv, media/placeholder.jpg);
+    VALUES (:beer, :brewery, :beerstyle, :abv, :photo);
 ';
 
 // Create db connection
@@ -41,15 +45,27 @@ $breweries = queryDB($db, $breweriesQuery);
 $styles = queryDB($db, $stylesQuery);
 
 if (isset($_POST['addBeer'])) {
-    $formVisibility = true;
+    $beerFormVisibility = true;
     $mainVisibility = false;
 }
 
-if (isset($_POST['cancel'])) {
-    $formVisibility = false;
+if (isset($_POST['back'])) {
+    $beerFormVisibility = false;
     $mainVisibility = true;
 }
 
 if (isset($_POST['save'])) {
-    addBeer($db, $addBeerQuery);
+    if (empty($_POST['beer'])) {
+        $nameError = 'Please enter a name';
+        $beerFormVisibility = true;
+        $mainVisibility = false;
+    } else {
+        addBeer($db, $addBeerQuery);
+        $beers = queryDB($db, $getBeersQuery);
+        $beerFormVisibility = false;
+        $mainVisibility = true;
+        if (!empty($targetFile)) {
+            require_once 'upload.php';
+        }
+    }
 }

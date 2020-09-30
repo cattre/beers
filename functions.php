@@ -1,7 +1,5 @@
 <?php
 
-require 'code.php';
-
 /**
  * Creates connection to database
  *
@@ -69,7 +67,26 @@ function getSummary (array $beer) :string {
     }
 }
 
-function addBeer(object $db, $query) {
-    $query = $db->prepare($query);
-    $query->execute([':beer' => $_POST['beer'], ':brewery' => $_POST['brewery'], ':beerstyle' => $_POST['style'], ':abv' => $_POST['abv']]);
+/**
+ * Adds new beer to database
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $queryString
+ *                           Insert item query
+ */
+function addBeer(object $db, string $queryString) {
+    $brewery = $_POST['brewery'] !== '' ? $_POST['brewery'] : null;
+    $beerstyle = $_POST['style'] !== '' ? $_POST['style'] : null;
+    $abv = $_POST['abv'] !== '' ? $_POST['abv'] : null;
+    $photo = empty($targetFile) ?? 'media/placeholder.jpg';
+
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':beer' => $_POST['beer'],
+        ':brewery' => $brewery,
+        ':beerstyle' => $beerstyle,
+        ':abv' => $abv,
+        ':photo' => $photo
+    ]);
 }
