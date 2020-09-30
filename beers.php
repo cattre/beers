@@ -9,6 +9,9 @@ $beers = queryDB($db, $beersQuery);
 // Get section letters
 $letters = getLetters($beers, 'beer');
 
+$formVisibility = false;
+$mainVisibility = true;
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +30,25 @@ $letters = getLetters($beers, 'beer');
             <h1>A world of beer</h1>
             <h3>(starting in the UK)</h3>
 		</header>
-		<main>
+        <section class='addBeer'>
+            <h1>Add a new beer</h1>
+            <form method="post">
+                <label>Name <input type='text' name='beer'></label>
+                <label>Brewery <select name='brewery'>
+                    <option>
+                        Brewery 1
+                    </option>
+                </select></label>
+                <label>Style <input type='text' name='style'></label>
+                <label>ABV <input type='number' name='abv'></label>
+                <label>Photo <input type='file' name='photo'></label>
+                <div class='buttons'>
+                    <input type='submit' value='Cancel'>
+                    <input type='submit' value='Save'>
+                </div>
+            </form>
+        </section>
+        <main>
             <?php if (isset($letters)) {
                 foreach ($letters as $letter): ?>
                     <section class='letter'>
