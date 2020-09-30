@@ -2,8 +2,11 @@
 
 require_once 'functions.php';
 
+// Create db connection
 $db = connectDB();
-$beers = queryDB($db, $queryString);
+// Query db for beers
+$beers = queryDB($db, $beersQuery);
+// Get section letters
 $letters = getLetters($beers, 'beer');
 
 ?>
@@ -32,14 +35,13 @@ $letters = getLetters($beers, 'beer');
                         <h1><?php echo $letter ?></h1>
                         <div class ='beers'>
                             <?php foreach ($beers as $beer):
+                                // Create entry for beer within section if first letter matches
                                 if ($beer['beer'][0] === $letter) {
                             ?>
                                 <article class='beer'>
                                     <summary>
                                         <h2><?php echo $beer['beer']; ?></h2>
-                                        <?php echo $beer['brewery']; ?> -
-                                        <?php echo $beer['county']; ?>,
-                                        <?php echo $beer['country']; ?>
+                                        <?php getSummary($beer)?>
                                         <br>
                                         <a target='_blank' href='<?php echo $beer['url'] ?>'>Visit website</a>
                                     </summary>
