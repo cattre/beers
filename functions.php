@@ -1,5 +1,7 @@
 <?php
 
+require 'code.php';
+
 /**
  * Creates connection to database
  *
@@ -67,3 +69,7 @@ function getSummary (array $beer) :string {
     }
 }
 
+function addBeer(object $db, $query) {
+    $query = $db->prepare($query);
+    $query->execute([':beer' => $_POST['beer'], ':brewery' => $_POST['brewery'], ':beerstyle' => $_POST['style'], ':abv' => $_POST['abv']]);
+}

@@ -22,31 +22,43 @@ require 'code.php';
             <h3>(starting in the UK)</h3>
             <?php if (!$formVisibility) { ?>
                 <form id='addBeerButton' method='post'>
-                    <input type='submit' name= 'addBeer' value='Add a beer'>
+                    <button type='submit' name='addBeer'>Add a beer</button>
                 </form>
             <?php } ?>
         </header>
         <?php if ($formVisibility) { ?>
             <section class='addBeerPage'>
-                <h1>Add a new beer</h1>
-                <form id='addBeerForm' method='post'>
-                    <label>Name <input type='text' name='beer'></label>
-                    <label>Brewery <select name='brewery'>
-                        <option name='default' selected='selected'>Please choose</option>
-                        <?php foreach ($breweries as $brewery): ?>
-                            <option>
-                                <?php echo $brewery['brewery']; ?>
+                <div class='addBeerContainer'>
+                    <h1>Add a new beer</h1>
+                    <form id='addBeerForm' method='post'>
+                        <label>Name <input type='text' name='beer'></label>
+                        <label>Brewery <select name='brewery'>
+                            <option value='' disabled selected hidden>
+                                Select brewery
                             </option>
-                        <?php endforeach; ?>
-                    </select></label>
-                    <label>Style <input type='text' name='style'></label>
-                    <label>ABV <input type='number' name='abv'></label>
-                    <label>Photo <input type='file' name='photo'></label>
-                    <div class='buttons'>
-                        <input type='submit' name='cancel' value='Cancel'>
-                        <input type='submit' name='save' value='Save'>
-                    </div>
-                </form>
+                            <?php foreach ($breweries as $brewery): ?>
+                                <option value='<?php echo $brewery['id']; ?>'>
+                                    <?php echo $brewery['brewery']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select></label>
+                        <label>Style <select name='style'>
+                            <option name='' disabled selected hidden>
+                                Select style
+                            </option>
+                            <?php foreach ($styles as $style): ?>
+                                <option>
+                                    <?php echo $style['style']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select></label>
+                        <label>ABV <input type='number' min='0' step='any' name='abv'></label>
+                        <div class='formButtons'>
+                            <button type='submit' name='cancel'>Cancel</button>
+                            <button type='submit' name='save'>Save</button>
+                        </div>
+                    </form>
+                </div>
             </section>
         <?php } ?>
         <?php if ($mainVisibility) { ?>
