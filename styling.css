@@ -201,7 +201,7 @@ details {
     font-size: 20px;
 }
 
-#beerButtons button[name='addBeer'] {
+#beerButtons button[name='addBeer'], #beerButtons button[name='updateBeer'] {
     background-color: #33cc33;
     color: #FFFFFF;
 }

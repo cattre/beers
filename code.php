@@ -5,6 +5,7 @@ require_once 'uploadFunctions.php';
 
 $beerFormVisibility = false;
 $breweryFormVisibility = false;
+$updateBeerFormVisibility = false;
 $mainVisibility = true;
 $nameError = '';
 $imageError = '';
@@ -59,13 +60,13 @@ $deleteBeer = '
 ';
 
 $getBeer = '
-    SELECT `beers`.`id`, `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
+    SELECT `beers`.`id`, `beers`.`name` as `beer`, `abv`, `style`, `brewery_id`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
     FROM `beers`
         LEFT JOIN `breweries`
         ON `beers`.`brewery_id` = `breweries`.`id`
         LEFT JOIN `locations`
-        ON `breweries`.`location_id` = `locations`.`id`;
-    WHERE `id` = :id
+        ON `breweries`.`location_id` = `locations`.`id`
+    WHERE `beers`.`id` = :id;
 ';
 
 $updateBeer = '
@@ -95,7 +96,6 @@ $locations = queryDB($db, $getLocations);
 
 // Action on selecting add a new beer button
 if (isset($_POST['addBeer'])) {
-    $beer = getBeer($db, $getBeer, $_POST['addBeer']);
     $beerFormVisibility = true;
     $mainVisibility = false;
     $breweryFormVisibility = false;
@@ -177,5 +177,23 @@ if (isset($_POST['saveBrewery'])) {
 if (isset($_POST['delete'])) {
     deleteBeer($db, $deleteBeer);
     header('Location: beers.php');
+}
+
+// Action on selecting update beer button
+if (isset($_POST['updateBeer'])) {
+    $beer = getBeer($db, $getBeer, $_POST['addBeer']);
+    $beerFormVisibility = false;
+    $mainVisibility = false;
+    $breweryFormVisibility = false;
+    $updateBeerFormVisibility = true;
+}
+
+// Action on selecting save changes button
+if (isset($_POST['saveChanges'])) {
+    $beer = updateBeer($db, $getBeer, $_POST['addBeer']);
+    $beerFormVisibility = false;
+    $mainVisibility = false;
+    $breweryFormVisibility = false;
+    $updateBeerFormVisibility = true;
 }
 

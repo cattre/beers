@@ -131,3 +131,10 @@ function getBeer(object $db, string $query, string $id) :array {
 
     return $query->fetch();
 }
+
+function updateBeer(object $db, string $query, string $id) :array {
+    $query = $db->prepare($query);
+    $query->execute([':id' => $id]);
+
+    return $query->fetch();
+}
