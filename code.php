@@ -8,7 +8,7 @@ $mainVisibility = true;
 $nameError = '';
 
 // Returns all beers, any linked breweries, and any linked locations
-$getBeersQuery = '
+$getBeers = '
     SELECT `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`
     FROM `beers`
         LEFT JOIN `breweries`
@@ -17,61 +17,62 @@ $getBeersQuery = '
         ON `breweries`.`location_id` = `locations`.`id`;
 ';
 
-$breweriesQuery = '
+$getBreweries = '
     SELECT `id`, `name` as `brewery`
     FROM `breweries`
 ';
 
-$stylesQuery = '
+$getStyles = '
     SELECT DISTINCT `style`
     FROM `beers`
     ORDER BY `style` ASC;
 ';
 
-$addBeerQuery = '
+$addBeer = '
     INSERT INTO `beers` (`name`, `brewery_id`, `style`, `abv`, `image`)
     VALUES (:beer, :brewery, :beerstyle, :abv, :photo);
 ';
 
-$countiesQuery = '
-    SELECT DISTINCT `county`, `id`
+$getLocations = '
+    SELECT DISTINCT `county`, `country`, `id`
     FROM `locations`
     ORDER BY `county` ASC;
 ';
 
-$countriesQuery = '
-    SELECT DISTINCT `country`, `id`
-    FROM `locations`
-    ORDER BY `country` ASC;
+$addBrewery = '
+    INSERT INTO `breweries` (`name`, `url`, `location_id`)
+    VALUES (:brewery, :url, :location);
 ';
 
 // Create db connection
 $db = connectDB();
 // Query db for beers
-$beers = queryDB($db, $getBeersQuery);
+$beers = queryDB($db, $getBeers);
 // Get section letters
 $letters = getLetters($beers, 'beer');
 // Get breweries
-$breweries = queryDB($db, $breweriesQuery);
+$breweries = queryDB($db, $getBreweries);
 // Get styles
-$styles = queryDB($db, $stylesQuery);
-// Get counties
-$counties = queryDB($db, $countiesQuery);
-// Get countries
-$countries = queryDB($db, $countriesQuery);
+$styles = queryDB($db, $getStyles);
+// Get locations
+$locations = queryDB($db, $getLocations);
 
+
+// Action on selecting add a new beer button
 if (isset($_POST['addBeer'])) {
     $beerFormVisibility = true;
     $mainVisibility = false;
     $breweryFormVisibility = false;
 }
 
+// Action on going back from add new beer page
 if (isset($_POST['back'])) {
     $beerFormVisibility = false;
     $mainVisibility = true;
     $breweryFormVisibility = false;
 }
 
+// Action on saving from add a new beer page
 if (isset($_POST['saveBeer'])) {
     if (empty($_POST['beer'])) {
         $nameError = 'Please enter a name';
@@ -79,8 +80,8 @@ if (isset($_POST['saveBeer'])) {
         $mainVisibility = false;
         $breweryFormVisibility = false;
     } else {
-        addBeer($db, $addBeerQuery);
-        $beers = queryDB($db, $getBeersQuery);
+        addBeer($db, $addBeer);
+        $beers = queryDB($db, $getBeers);
         $beerFormVisibility = false;
         $mainVisibility = true;
         $breweryFormVisibility = false;
@@ -90,20 +91,32 @@ if (isset($_POST['saveBeer'])) {
     }
 }
 
+// Action on selecting add a new brewery button
 if (isset($_POST['addBrewery'])) {
     $beerFormVisibility = false;
     $mainVisibility = false;
     $breweryFormVisibility = true;
 }
 
+// Action on going back from add new brewery page
 if (isset($_POST['backOne'])) {
     $beerFormVisibility = true;
     $mainVisibility = false;
     $breweryFormVisibility = false;
 }
 
+// Action on saving from add a new brewery page
 if (isset($_POST['saveBrewery'])) {
-    $beerFormVisibility = true;
-    $mainVisibility = false;
-    $breweryFormVisibility = false;
+    if (empty($_POST['brewery'])) {
+        $nameError = 'Please enter a name';
+        $beerFormVisibility = false;
+        $mainVisibility = false;
+        $breweryFormVisibility = true;
+    } else {
+        addBrewery($db, $addBrewery);
+        $breweries = queryDB($db, $getBreweries);
+        $beerFormVisibility = true;
+        $mainVisibility = false;
+        $breweryFormVisibility = false;
+    }
 }

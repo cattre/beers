@@ -68,7 +68,8 @@ function getSummary (array $beer) :string {
 }
 
 /**
- * Adds new beer to database
+ * Changes empty strings to null values where needed
+ * Binds parameters and adds new beer to database
  *
  * @param object $db
  *                  Database object
@@ -88,5 +89,17 @@ function addBeer(object $db, string $queryString) {
         ':beerstyle' => $beerstyle,
         ':abv' => $abv,
         ':photo' => $photo
+    ]);
+}
+
+function addBrewery(object $db, string $queryString) {
+    $location = $_POST['location'] !== '' ? $_POST['location'] : null;
+    $url = $_POST['url'] !== '' ? $_POST['url'] : null;
+
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':brewery' => $_POST['brewery'],
+        ':location' => $location,
+        ':url' => $url,
     ]);
 }

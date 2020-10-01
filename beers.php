@@ -17,7 +17,9 @@ require_once 'code.php';
 	<body>
         <div class='bg'></div>
 		<header>
-            <h1>A world of beer</h1>
+            <a href='beers.php'>
+                A world of beer
+            </a>
             <h3>(starting in the UK)</h3>
             <?php if (!$beerFormVisibility) { ?>
                 <form id='addBeerButton' method='post'>
@@ -29,36 +31,26 @@ require_once 'code.php';
             <section class='addPage'>
                 <div class='addContainer'>
                     <h1>Add a new brewery</h1>
-                    <form class='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                    <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
                         <label>Name (required)<input type='text' name='brewery'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <br><br>
-                        <label>County <select name='county'>
-                            <option value='' selected hidden>
-                                Select county
-                            </option>
-                            <?php foreach ($counties as $county): ?>
-                                <option value='<?php echo $county['id']; ?>'>
-                                    <?php echo $county['county']; ?>
+                        <label>Location <select name='location'>
+                                <option value='' selected hidden>
+                                    Select location
                                 </option>
-                            <?php endforeach; ?>
-                        </select></label>
-                        <br><br>
-                        <label>Country <select name='country'>
-                            <option value='' selected hidden>
-                                Select county
-                            </option>
-                            <?php foreach ($countries as $country): ?>
-                                <option value='<?php echo $country['country']; ?>'>
-                                    <?php echo $country['country']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select></label>
+                                <?php foreach ($locations as $location): ?>
+                                    <option value='<?php echo $location['id']; ?>'>
+                                        <?php echo $location['county'] . ', ' . $location['country']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select></label>
                         <br><br>
                         <label>URL <input type='url' name='url'></label>
+                        <br><br>
                         <div class='formButtons'>
                             <button type='submit' name='backOne' value='backOne'>Back</button>
-                            <button type='submit' name='saveBrewery' value='saveBrewery'>Save</button>
+                            <button type='submit' name='saveBrewery' value='saveBeer'>Save</button>
                         </div>
                     </form>
                 </div>
@@ -98,6 +90,7 @@ require_once 'code.php';
                         <label>ABV <input type='number' min='0' max='20' step='any' name='abv'></label>
                         <br><br>
                         <label>Photo <input type='file' name='photo'></label>
+                        <br><br>
                         <div class='formButtons'>
                             <button type='submit' name='back' value='back'>Back to list</button>
                             <button type='submit' name='saveBeer' value='saveBeer'>Save</button>
