@@ -87,7 +87,7 @@ function addBeer(object $db, string $queryString, string $imageFile) {
     $brewery = $_POST['brewery'] !== '' ? $_POST['brewery'] : null;
     $beerstyle = $_POST['style'] !== '' ? $_POST['style'] : null;
     $abv = $_POST['abv'] !== '' ? $_POST['abv'] : null;
-    $photo = $imageFile ?? 'media/placeholder.jpg';
+    $photo = $imageFile !== '' ? $imageFile : 'media/placeholder.jpg';
 
     $query = $db->prepare($queryString);
     $query->execute([
@@ -131,6 +131,55 @@ function addBrewery(object $db, string $queryString) {
 function deleteBeer(object $db, string $queryString) {
     $query = $db->prepare($queryString);
     $query->execute([
-        ':beer' => $_POST['delete'],
+        ':id' => $_POST['delete'],
+    ]);
+}
+
+/**
+ * Retrieves single row from database for selected id
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $query
+ *                     Query to execute
+ * @param string $id
+ *                  Item id to filter query
+ *
+ * @return array
+ *              Item array
+ */
+function getBeer(object $db, string $query, string $id) :array {
+    $query = $db->prepare($query);
+    $query->execute([':id' => $id]);
+
+    return $query->fetch();
+}
+
+/**
+ * Updates single item in database with new values
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $query
+ *                     Query to execute
+ * @param string $imageFile
+ *                         Desination image file
+ * @param string $id
+ *                  Item id to filter query
+ */
+function updateBeer(object $db, string $query, string $imageFile, string $id) {
+    $brewery = $_POST['brewery'] !== '' ? $_POST['brewery'] : null;
+    $beerstyle = $_POST['style'] !== '' ? $_POST['style'] : null;
+    $abv = $_POST['abv'] !== '' ? $_POST['abv'] : null;
+    $photo = $imageFile !== '' ? $imageFile : 'media/placeholder.jpg';
+
+    $query = $db->prepare($query);
+    $query->execute([
+        ':id' => $id,
+        ':beer' => $_POST['beer'],
+        ':brewery' => $brewery,
+        ':beerstyle' => $beerstyle,
+        ':abv' => $abv,
+        ':photo' => $photo
     ]);
 }

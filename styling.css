@@ -64,7 +64,7 @@ button:hover {
 #addBeerButton button {
     width: 5em;
     height: 3em;
-    background-color: orange;
+    background-color: #F16529;
     font-family: 'Architects Daughter', cursive;
     font-size: 25px;
 }
@@ -100,6 +100,13 @@ button:hover {
     height: 50px;
     width: 100%;
     transition-duration: 0.4s;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+button[name='addBrewery'] {
+    display: block;
+    margin-bottom: 10px;
 }
 
 #addForm input:hover, select:hover {
@@ -130,7 +137,7 @@ button[name='back'], button[name='backOne'] {
     color: #FF0000;
 }
 
-button[name='saveBeer'], button[name='saveBrewery'] {
+button[name='saveBeer'], button[name='saveBrewery'], button[name='saveChanges'] {
     background-color: #33cc33;
     border-color: #33cc33;
     color: #FFFFFF;
@@ -187,16 +194,26 @@ details {
     padding: 10px;
 }
 
-#deleteButton {
+#beerButtons {
     grid-area: d;
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-#deleteButton button {
-    background-color: #FF0000;
-    color: #FFFFFF;
+#beerButtons button {
     width: 100%;
     min-height: 2em;
     font-size: 20px;
+}
+
+#beerButtons button[name='addBeer'], #beerButtons button[name='updateBeer'] {
+    background-color: #33cc33;
+    color: #FFFFFF;
+}
+
+#beerButtons button[name='delete'] {
+    background-color: #FF0000;
+    color: #FFFFFF;
 }

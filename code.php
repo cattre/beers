@@ -1,10 +1,11 @@
 <?php
 
-require_once 'functions.php';
-require_once 'uploadFunctions.php';
+require 'functions.php';
+require 'uploadFunctions.php';
 
 $beerFormVisibility = false;
 $breweryFormVisibility = false;
+$updateBeerFormVisibility = false;
 $mainVisibility = true;
 $nameError = '';
 $imageError = '';
@@ -18,7 +19,7 @@ if ($_FILES) {
 
 // Returns all beers, any linked breweries, and any linked locations
 $getBeers = '
-    SELECT `beers`.`id`, `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
+    SELECT `beers`.`id` as `beer_id`, `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
     FROM `beers`
         LEFT JOIN `breweries`
         ON `beers`.`brewery_id` = `breweries`.`id`
@@ -55,7 +56,28 @@ $addBrewery = '
 
 $deleteBeer = '
     DELETE FROM `beers`
-    WHERE `id` = :beer;
+    WHERE `id` = :id AND (`protected` IS null OR `protected` = 0);
+';
+
+$getBeer = '
+    SELECT `beers`.`id` as `beer_id`, `beers`.`name` as `beer`, `abv`, `style`, `brewery_id`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
+    FROM `beers`
+        LEFT JOIN `breweries`
+        ON `beers`.`brewery_id` = `breweries`.`id`
+        LEFT JOIN `locations`
+        ON `breweries`.`location_id` = `locations`.`id`
+    WHERE `beers`.`id` = :id;
+';
+
+$updateBeer = '
+    UPDATE `beers`
+    SET
+        `name` = :beer,
+        `brewery_id` = :brewery,
+        `style` = :beerstyle,
+        `abv` = :abv,
+        `image` = :photo
+    WHERE `id` = :id AND (`protected` IS null OR `protected` = 0);
 ';
 
 // Create db connection
@@ -155,4 +177,44 @@ if (isset($_POST['saveBrewery'])) {
 if (isset($_POST['delete'])) {
     deleteBeer($db, $deleteBeer);
     header('Location: beers.php');
+}
+
+// Action on selecting update beer button
+if (isset($_POST['updateBeer'])) {
+    $beer = getBeer($db, $getBeer, $_POST['updateBeer']);
+    $beerFormVisibility = false;
+    $mainVisibility = false;
+    $breweryFormVisibility = false;
+    $updateBeerFormVisibility = true;
+}
+
+// Action on selecting save changes button
+if (isset($_POST['saveChanges'])) {
+    if (empty($_POST['beer'])) {
+        $nameError = 'Please enter a name';
+        $beerFormVisibility = false;
+        $mainVisibility = false;
+        $breweryFormVisibility = false;
+        $updateBeerFormVisibility = true;
+    } else if ($_FILES['photo']['name']) {
+        $imageError = checkForImage($imageError);
+        $imageError = checkNewImage($imageError, $targetFile);
+        $imageError = checkFileSize($imageError);
+        $imageError = checkFileType($imageError, $imageFileType);
+        $imageError = uploadFile($imageError, $targetFile);
+        if ($imageError) {
+            $beerFormVisibility = false;
+            $mainVisibility = false;
+            $breweryFormVisibility = false;
+            $updateBeerFormVisibility = true;
+        } else {
+            updateBeer($db, $updateBeer, '', $_POST['id']);
+            $beers = queryDB($db, $getBeers);
+            header('Location: beers.php');
+        }
+    } else {
+        updateBeer($db, $updateBeer, '', $_POST['id']);
+        $beers = queryDB($db, $getBeers);
+        header('Location: beers.php');
+    }
 }
