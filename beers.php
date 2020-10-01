@@ -61,7 +61,7 @@ require_once 'code.php';
                 <div class='addContainer'>
                     <h1>Add a new beer</h1>
                     <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
-                        <label>Name (required)<input type='text' name='beer'></label>
+                        <label>Name (required)<input type='text' name='beer' value='<?php echo $beer['beer']; ?>'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <br><br>
                         <label>Brewery <select name='brewery'>
@@ -126,7 +126,8 @@ require_once 'code.php';
                                         <?php echo "ABV: {$beer['abv']}"; ?>
                                     </details>
                                     <?php if (!$beer['protected']) { ?>
-                                    <form id='deleteButton' method='post'>
+                                    <form id='beerButtons' method='post'>
+                                        <button type='submit' name='addBeer' value='<?php echo $beer['id'] ?>'>Update beer</button>
                                         <button type='submit' name='delete' value='<?php echo $beer['id'] ?>'>Delete beer</button>
                                     </form>
                                     <?php } ?>

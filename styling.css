@@ -64,7 +64,7 @@ button:hover {
 #addBeerButton button {
     width: 5em;
     height: 3em;
-    background-color: orange;
+    background-color: #F16529;
     font-family: 'Architects Daughter', cursive;
     font-size: 25px;
 }
@@ -187,16 +187,26 @@ details {
     padding: 10px;
 }
 
-#deleteButton {
+#beerButtons {
     grid-area: d;
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-#deleteButton button {
-    background-color: #FF0000;
-    color: #FFFFFF;
+#beerButtons button {
     width: 100%;
     min-height: 2em;
     font-size: 20px;
+}
+
+#beerButtons button[name='addBeer'] {
+    background-color: #33cc33;
+    color: #FFFFFF;
+}
+
+#beerButtons button[name='delete'] {
+    background-color: #FF0000;
+    color: #FFFFFF;
 }

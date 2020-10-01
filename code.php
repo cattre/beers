@@ -55,7 +55,28 @@ $addBrewery = '
 
 $deleteBeer = '
     DELETE FROM `beers`
-    WHERE `id` = :beer;
+    WHERE `id` = :id AND `protected` != 1;
+';
+
+$getBeer = '
+    SELECT `beers`.`id`, `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
+    FROM `beers`
+        LEFT JOIN `breweries`
+        ON `beers`.`brewery_id` = `breweries`.`id`
+        LEFT JOIN `locations`
+        ON `breweries`.`location_id` = `locations`.`id`;
+    WHERE `id` = :id
+';
+
+$updateBeer = '
+    UPDATE `beers`
+    SET
+        `name` = :beer,
+        `brewery_id` = :brewery,
+        `style` = :beerstyle,
+        `abv` = :abv,
+        `image` = :photo
+    WHERE `id` = :id;
 ';
 
 // Create db connection
@@ -74,6 +95,7 @@ $locations = queryDB($db, $getLocations);
 
 // Action on selecting add a new beer button
 if (isset($_POST['addBeer'])) {
+    $beer = getBeer($db, $getBeer, $_POST['addBeer']);
     $beerFormVisibility = true;
     $mainVisibility = false;
     $breweryFormVisibility = false;
@@ -156,3 +178,4 @@ if (isset($_POST['delete'])) {
     deleteBeer($db, $deleteBeer);
     header('Location: beers.php');
 }
+

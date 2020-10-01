@@ -121,6 +121,13 @@ function addBrewery(object $db, string $queryString) {
 function deleteBeer(object $db, string $queryString) {
     $query = $db->prepare($queryString);
     $query->execute([
-        ':beer' => $_POST['delete'],
+        ':id' => $_POST['delete'],
     ]);
+}
+
+function getBeer(object $db, string $query, string $id) :array {
+    $query = $db->prepare($query);
+    $query->execute([':id' => $id]);
+
+    return $query->fetch();
 }
