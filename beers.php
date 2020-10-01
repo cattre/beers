@@ -21,7 +21,7 @@ require_once 'code.php';
                 A world of beer
             </a>
             <h3>(starting in the UK)</h3>
-            <?php if (!$beerFormVisibility) { ?>
+            <?php if (!$beerFormVisibility && !$breweryFormVisibility) { ?>
                 <form id='addBeerButton' method='post'>
                     <button type='submit' name='addBeer' value='addBeer'>Add a beer</button>
                 </form>

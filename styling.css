@@ -76,7 +76,7 @@ button:hover {
 }
 
 .addContainer {
-    width: 50vw;
+    width: 75vw;
     padding: 50px;
     display: grid;
     grid-template-areas:
@@ -119,8 +119,8 @@ button:hover {
 
 .formButtons button {
     color: #FFFFFF;
-    width: 10em;
-    height: 2em;
+    width: 40%;
+    min-height: 2em;
     font-size: 20px;
 }
 
