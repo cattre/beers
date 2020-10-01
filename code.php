@@ -18,7 +18,7 @@ if ($_FILES) {
 
 // Returns all beers, any linked breweries, and any linked locations
 $getBeers = '
-    SELECT `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`
+    SELECT `beers`.`id`, `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
     FROM `beers`
         LEFT JOIN `breweries`
         ON `beers`.`brewery_id` = `breweries`.`id`
@@ -51,6 +51,11 @@ $getLocations = '
 $addBrewery = '
     INSERT INTO `breweries` (`name`, `url`, `location_id`)
     VALUES (:brewery, :url, :location);
+';
+
+$deleteBeer = '
+    DELETE FROM `beers`
+    WHERE `id` = :beer;
 ';
 
 // Create db connection
@@ -88,7 +93,7 @@ if (isset($_POST['saveBeer'])) {
         $beerFormVisibility = true;
         $mainVisibility = false;
         $breweryFormVisibility = false;
-    } else if ($_FILES) {
+    } else if ($_FILES['photo']['name']) {
         $imageError = checkForImage($imageError);
         $imageError = checkNewImage($imageError, $targetFile);
         $imageError = checkFileSize($imageError);
@@ -99,7 +104,7 @@ if (isset($_POST['saveBeer'])) {
             $mainVisibility = false;
             $breweryFormVisibility = false;
         } else {
-            addBeer($db, $addBeer, $targetFile);
+            addBeer($db, $addBeer, '');
             $beers = queryDB($db, $getBeers);
             header('Location: beers.php');
             $beerFormVisibility = false;
@@ -107,7 +112,7 @@ if (isset($_POST['saveBeer'])) {
             $breweryFormVisibility = false;
         }
     } else {
-        addBeer($db, $addBeer, $targetFile);
+        addBeer($db, $addBeer, '');
         $beers = queryDB($db, $getBeers);
         header('Location: beers.php');
         $beerFormVisibility = false;
@@ -144,4 +149,10 @@ if (isset($_POST['saveBrewery'])) {
         $mainVisibility = false;
         $breweryFormVisibility = false;
     }
+}
+
+// Action on selecting delete button
+if (isset($_POST['delete'])) {
+    deleteBeer($db, $deleteBeer);
+    header('Location: beers.php');
 }

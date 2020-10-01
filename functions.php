@@ -112,3 +112,10 @@ function addBrewery(object $db, string $queryString) {
         ':url' => $url,
     ]);
 }
+
+function deleteBeer(object $db, string $queryString) {
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':beer' => $_POST['delete'],
+    ]);
+}

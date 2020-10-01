@@ -29,7 +29,7 @@ function checkForImage(string $error) :string {
  */
 function checkNewImage(string $error, string $targetFile) :string {
     if (!$error && file_exists($targetFile)) {
-        $imageError = 'This filename already exists, please rename and try again.';
+        $error = 'This filename already exists, please rename and try again.';
     }
     return $error;
 }
@@ -64,7 +64,7 @@ function checkFileSize(string $error) :string {
 function checkFileType(string $error, string $fileType) :string {
     if (!$error && $fileType != 'jpg' && $fileType != 'png' && $fileType != 'jpeg'
         && $fileType != 'gif') {
-        $imageError = 'Only JPG, JPEG, PNG & GIF iamge files are allowed.';
+        $error = 'Only JPG, JPEG, PNG & GIF iamge files are allowed.';
     }
     return $error;
 }

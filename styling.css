@@ -153,7 +153,7 @@ main {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
     'a a a'
-    '. b .'
+    '. b d'
     '. c .';
     margin: 100px;
 }
@@ -185,4 +185,18 @@ details {
     font-size: 25px;
     text-align: center;
     padding: 10px;
+}
+
+#deleteButton {
+    grid-area: d;
+    display: flex;
+    align-items: center;
+}
+
+#deleteButton button {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    width: 100%;
+    min-height: 2em;
+    font-size: 20px;
 }

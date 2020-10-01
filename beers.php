@@ -125,6 +125,11 @@ require_once 'code.php';
                                         <br>
                                         <?php echo "ABV: {$beer['abv']}"; ?>
                                     </details>
+                                    <?php if (!$beer['protected']) { ?>
+                                    <form id='deleteButton' method='post'>
+                                        <button type='submit' name='delete' value='<?php echo $beer['id'] ?>'>Delete beer</button>
+                                    </form>
+                                    <?php } ?>
                                 </article>
                             <?php } endforeach; ?>
                         </div>
