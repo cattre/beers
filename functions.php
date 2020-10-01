@@ -12,16 +12,6 @@ function connectDB() :object {
     return $db;
 }
 
-// Returns all beers, any linked breweries, and any linked locations
-$beersQuery = '
-    SELECT `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`
-    FROM `beers`
-        LEFT JOIN `breweries`
-        ON `beers`.`brewery_id` = `breweries`.`id`
-        LEFT JOIN `locations`
-        ON `breweries`.`location_id` = `locations`.`id`;
-';
-
 /**
  * Queries database and returns results
  *
@@ -80,4 +70,67 @@ function getSummary (array $beer) :string {
     } else {
         return '';
     }
+}
+
+/**
+ * Adds new beer to database
+ * Changes empty strings to null values where needed and sanitises user input
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $queryString
+ *                           Insert item query
+ * @param string $imageFile
+ *                         Destination image file
+ */
+function addBeer(object $db, string $queryString, string $imageFile) {
+    $brewery = $_POST['brewery'] !== '' ? $_POST['brewery'] : null;
+    $beerstyle = $_POST['style'] !== '' ? $_POST['style'] : null;
+    $abv = $_POST['abv'] !== '' ? $_POST['abv'] : null;
+    $photo = $imageFile ?? 'media/placeholder.jpg';
+
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':beer' => $_POST['beer'],
+        ':brewery' => $brewery,
+        ':beerstyle' => $beerstyle,
+        ':abv' => $abv,
+        ':photo' => $photo
+    ]);
+}
+
+/**
+ * Adds new brewery to database
+ * Changes empty strings to null values where needed and sanitises user input
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $queryString
+ *                           Add brewery query
+ */
+function addBrewery(object $db, string $queryString) {
+    $location = $_POST['location'] !== '' ? $_POST['location'] : null;
+    $url = $_POST['url'] !== '' ? $_POST['url'] : null;
+
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':brewery' => $_POST['brewery'],
+        ':location' => $location,
+        ':url' => $url,
+    ]);
+}
+
+/**
+ * Deletes selected beer
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $queryString
+ *                           Delete item query
+ */
+function deleteBeer(object $db, string $queryString) {
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':beer' => $_POST['delete'],
+    ]);
 }
