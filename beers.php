@@ -107,6 +107,7 @@ require_once 'code.php';
                 <div class='addContainer'>
                     <h1>Update beer</h1>
                     <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                        <label hidden>ID <input type='number' name='id' value='<?php echo $beer['beer_id']; ?>'></label>
                         <label>Name (required)<input type='text' name='beer' value='<?php echo $beer['beer']; ?>'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <br><br>
@@ -142,7 +143,7 @@ require_once 'code.php';
                         <br><br>
                         <div class='formButtons'>
                             <button type='submit' name='back' value='back'>Back to list</button>
-                            <button type='submit' name='saveBeer' value='saveChanges'>Save changes</button>
+                            <button type='submit' name='saveChanges' value='saveChanges'>Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -175,8 +176,8 @@ require_once 'code.php';
                                     </details>
                                     <?php if (!$beer['protected']) { ?>
                                     <form id='beerButtons' method='post'>
-                                        <button type='submit' name='updateBeer' value='<?php echo $beer['id'] ?>'>Update beer</button>
-                                        <button type='submit' name='delete' value='<?php echo $beer['id'] ?>'>Delete beer</button>
+                                        <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id'] ?>'>Update beer</button>
+                                        <button type='submit' name='delete' value='<?php echo $beer['beer_id'] ?>'>Delete beer</button>
                                     </form>
                                     <?php } ?>
                                 </article>
