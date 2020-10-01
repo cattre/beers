@@ -75,6 +75,8 @@ function getSummary (array $beer) :string {
  *                  Database object
  * @param string $queryString
  *                           Insert item query
+ * @param string $imageFile
+ *                         Destination image file
  */
 function addBeer(object $db, string $queryString, string $imageFile) {
     $brewery = $_POST['brewery'] !== '' ? $_POST['brewery'] : null;

@@ -1,6 +1,13 @@
 <?php
 
-// Check if image file is a actual image
+/**
+ * Checks if file is an image
+ *
+ * @param string $error
+ *                     Current error message
+ * @return string
+ *               New error message
+ */
 function checkForImage(string $error) :string {
         $check = getimagesize($_FILES['photo']['tmp_name']);
         if (!$error && $check === false) {
@@ -9,7 +16,17 @@ function checkForImage(string $error) :string {
     return $error;
 }
 
-// Check if file already exists
+/**
+ * Checks if filename already exists
+ *
+ * @param string $error
+ *                     Current error message
+ * @param string $targetFile
+ *                          Destination filename
+ *
+ * @return string
+ *               New error message
+ */
 function checkNewImage(string $error, string $targetFile) :string {
     if (!$error && file_exists($targetFile)) {
         $imageError = 'This filename already exists, please rename and try again.';
@@ -17,7 +34,15 @@ function checkNewImage(string $error, string $targetFile) :string {
     return $error;
 }
 
-// Check file size
+/**
+ * Checks file size is within limits
+ *
+ * @param string $error
+ *                     Current error message
+ *
+ * @return string
+ *               New error message
+ */
 function checkFileSize(string $error) :string {
     if (!$error && $_FILES['photo']['size'] > 500000) {
         $error = 'The image needs to be smaller than 500kb.';
@@ -25,7 +50,17 @@ function checkFileSize(string $error) :string {
     return $error;
 }
 
-// Allow certain file formats
+/**
+ * Checks format of file
+ *
+ * @param string $error
+ *                     Current error message
+ * @param string $fileType
+ *                        Uploaded file type
+ *
+ * @return string
+ *               New error message
+ */
 function checkFileType(string $error, string $fileType) :string {
     if (!$error && $fileType != 'jpg' && $fileType != 'png' && $fileType != 'jpeg'
         && $fileType != 'gif') {
@@ -34,7 +69,17 @@ function checkFileType(string $error, string $fileType) :string {
     return $error;
 }
 
-// Check if $uploadOk is set to 0 by an error
+/**
+ * Upload file if no errors
+ *
+ * @param string $error
+ *                     Current error message
+ * @param string $target
+ *                      Target file
+ *
+ * @return string
+ *               New error message
+ */
 function uploadFile(string $error, string $target) :string {
     if (!$error) {
         if (!move_uploaded_file($_FILES['photo']['tmp_name'], $target)) {
