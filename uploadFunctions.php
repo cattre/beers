@@ -10,7 +10,7 @@
  */
 function checkForImage(string $error) :string {
         $check = getimagesize($_FILES['photo']['tmp_name']);
-        if (!$error && $check === false) {
+        if ($error === '' && $check === false) {
             $error = 'The file is not an image, please try again.';
         }
     return $error;
@@ -28,7 +28,7 @@ function checkForImage(string $error) :string {
  *               New error message
  */
 function checkNewImage(string $error, string $targetFile) :string {
-    if (!$error && file_exists($targetFile)) {
+    if ($error === '' && file_exists($targetFile)) {
         $error = 'This filename already exists, please rename and try again.';
     }
     return $error;
@@ -44,7 +44,7 @@ function checkNewImage(string $error, string $targetFile) :string {
  *               New error message
  */
 function checkFileSize(string $error) :string {
-    if (!$error && $_FILES['photo']['size'] > 500000) {
+    if ($error === '' && $_FILES['photo']['size'] > 500000) {
         $error = 'The image needs to be smaller than 500kb.';
     }
     return $error;
@@ -62,7 +62,7 @@ function checkFileSize(string $error) :string {
  *               New error message
  */
 function checkFileType(string $error, string $fileType) :string {
-    if (!$error && $fileType != 'jpg' && $fileType != 'png' && $fileType != 'jpeg'
+    if ($error === '' && $fileType != 'jpg' && $fileType != 'png' && $fileType != 'jpeg'
         && $fileType != 'gif') {
         $error = 'Only JPG, JPEG, PNG & GIF iamge files are allowed.';
     }
@@ -81,7 +81,7 @@ function checkFileType(string $error, string $fileType) :string {
  *               New error message
  */
 function uploadFile(string $error, string $target) :string {
-    if (!$error) {
+    if ($error === '') {
         if (!move_uploaded_file($_FILES['photo']['tmp_name'], $target)) {
             $error = 'Sorry, there was an error uploading your file, please try again.';
         }
