@@ -100,6 +100,13 @@ button:hover {
     height: 50px;
     width: 100%;
     transition-duration: 0.4s;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+button[name='addBrewery'] {
+    display: block;
+    margin-bottom: 10px;
 }
 
 #addForm input:hover, select:hover {
