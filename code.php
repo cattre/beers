@@ -1,11 +1,20 @@
 <?php
 
 require_once 'functions.php';
+require_once 'uploadFunctions.php';
 
 $beerFormVisibility = false;
 $breweryFormVisibility = false;
 $mainVisibility = true;
 $nameError = '';
+$imageError = '';
+
+// Image upload variables
+if ($_FILES) {
+    $targetDir = 'media' . DIRECTORY_SEPARATOR;
+    $targetFile = $targetDir . basename($_FILES['photo']['name']);
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+}
 
 // Returns all beers, any linked breweries, and any linked locations
 $getBeers = '
@@ -79,15 +88,31 @@ if (isset($_POST['saveBeer'])) {
         $beerFormVisibility = true;
         $mainVisibility = false;
         $breweryFormVisibility = false;
+    } else if ($_FILES) {
+        $imageError = checkForImage($imageError);
+        $imageError = checkNewImage($imageError, $targetFile);
+        $imageError = checkFileSize($imageError);
+        $imageError = checkFileType($imageError, $imageFileType);
+        $imageError = uploadFile($imageError, $targetFile);
+        if ($imageError) {
+            $beerFormVisibility = true;
+            $mainVisibility = false;
+            $breweryFormVisibility = false;
+        } else {
+            addBeer($db, $addBeer, $targetFile);
+            $beers = queryDB($db, $getBeers);
+            header('Location: beers.php');
+            $beerFormVisibility = false;
+            $mainVisibility = true;
+            $breweryFormVisibility = false;
+        }
     } else {
-        addBeer($db, $addBeer);
+        addBeer($db, $addBeer, $targetFile);
         $beers = queryDB($db, $getBeers);
+        header('Location: beers.php');
         $beerFormVisibility = false;
         $mainVisibility = true;
         $breweryFormVisibility = false;
-        if (!empty($targetFile)) {
-            require_once 'upload.php';
-        }
     }
 }
 

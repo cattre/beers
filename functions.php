@@ -68,19 +68,19 @@ function getSummary (array $beer) :string {
 }
 
 /**
- * Changes empty strings to null values where needed
- * Binds parameters and adds new beer to database
+ * Adds new beer to database
+ * Changes empty strings to null values where needed and sanitises user input
  *
  * @param object $db
  *                  Database object
  * @param string $queryString
  *                           Insert item query
  */
-function addBeer(object $db, string $queryString) {
+function addBeer(object $db, string $queryString, string $imageFile) {
     $brewery = $_POST['brewery'] !== '' ? $_POST['brewery'] : null;
     $beerstyle = $_POST['style'] !== '' ? $_POST['style'] : null;
     $abv = $_POST['abv'] !== '' ? $_POST['abv'] : null;
-    $photo = empty($targetFile) ?? 'media/placeholder.jpg';
+    $photo = $imageFile ?? 'media/placeholder.jpg';
 
     $query = $db->prepare($queryString);
     $query->execute([
@@ -92,6 +92,13 @@ function addBeer(object $db, string $queryString) {
     ]);
 }
 
+/**
+ * Adds new brewery to database
+ * Changes empty strings to null values where needed and sanitises user input
+ *
+ * @param object $db
+ * @param string $queryString
+ */
 function addBrewery(object $db, string $queryString) {
     $location = $_POST['location'] !== '' ? $_POST['location'] : null;
     $url = $_POST['url'] !== '' ? $_POST['url'] : null;

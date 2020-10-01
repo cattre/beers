@@ -90,6 +90,7 @@ require_once 'code.php';
                         <label>ABV <input type='number' min='0' max='20' step='any' name='abv'></label>
                         <br><br>
                         <label>Photo <input type='file' name='photo'></label>
+                        <span class='error'><?php echo $imageError;?></span>
                         <br><br>
                         <div class='formButtons'>
                             <button type='submit' name='back' value='back'>Back to list</button>
