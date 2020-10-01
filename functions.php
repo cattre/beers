@@ -104,7 +104,9 @@ function addBeer(object $db, string $queryString, string $imageFile) {
  * Changes empty strings to null values where needed and sanitises user input
  *
  * @param object $db
+ *                  Database object
  * @param string $queryString
+ *                           Add brewery query
  */
 function addBrewery(object $db, string $queryString) {
     $location = $_POST['location'] !== '' ? $_POST['location'] : null;
@@ -118,6 +120,14 @@ function addBrewery(object $db, string $queryString) {
     ]);
 }
 
+/**
+ * Deletes selected beer
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $queryString
+ *                           Delete item query
+ */
 function deleteBeer(object $db, string $queryString) {
     $query = $db->prepare($queryString);
     $query->execute([
