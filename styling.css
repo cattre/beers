@@ -23,67 +23,117 @@ header {
     position: fixed;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 6fr 1fr;
+    grid-template-columns: 2fr 6fr 2fr;
     grid-template-areas:
-    '. a .'
-    '. b .';
+    'a b c'
+    'd e c';
+    align-items: center;
     text-align: center;
     background-color: #FFFFFF;
 }
 
-header h1 {
-    grid-area: a;
+header a {
+    grid-area: b;
+    margin-top: 20px;
     margin-bottom: 0;
     font-family: 'Mansalva', cursive;
     font-size: 50px;
+    color: #000000;
+    text-decoration: none;
 }
 
 header h3 {
-    grid-area: b;
+    grid-area: e;
     margin-top: 0;
     font-family: 'Architects Daughter', cursive;
 }
 
-.addBeer {
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 250px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+button {
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+#addBeerButton {
+    grid-area: c;
+}
+
+#addBeerButton button {
+    width: 5em;
+    height: 3em;
+    background-color: orange;
+    font-family: 'Architects Daughter', cursive;
+    font-size: 25px;
+}
+
+.addPage {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.addContainer {
+    width: 75vw;
+    padding: 50px;
     display: grid;
-    grid-template-columns: 2fr 4fr 2fr;
     grid-template-areas:
     '. a .'
     '. b .'
-    '. b .'
-    '. b .'
-    '. b .'
-    '. b .'
     '. c .';
-    background-color: #FFFFFF;
     font-family: 'Architects Daughter', cursive;
+    background-color: #FFFFFF;
 }
 
-.addBeer h1 {
+.addContainer h1 {
     grid-area: a;
 }
 
-form {
+#addForm {
     grid-area: b;
 }
 
-form input, select {
+#addForm input, select {
     display: block;
     height: 50px;
     width: 100%;
+    transition-duration: 0.4s;
 }
 
-form label {
+#addForm input:hover, select:hover {
+    border-color: #33cc33;
 }
 
-.addBeer .buttons {
+.error {
+    color: #FF0000;
+}
+
+.formButtons {
     grid-area: c;
     display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.formButtons button {
+    color: #FFFFFF;
+    width: 40%;
+    min-height: 2em;
+    font-size: 20px;
+}
+
+button[name='back'], button[name='backOne'] {
+    background-color: #FFFFFF;
+    border-color: #FF0000;
+    color: #FF0000;
+}
+
+button[name='saveBeer'], button[name='saveBrewery'] {
+    background-color: #33cc33;
+    border-color: #33cc33;
+    color: #FFFFFF;
 }
 
 main {
@@ -103,7 +153,7 @@ main {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
     'a a a'
-    '. b .'
+    '. b d'
     '. c .';
     margin: 100px;
 }
@@ -135,4 +185,18 @@ details {
     font-size: 25px;
     text-align: center;
     padding: 10px;
+}
+
+#deleteButton {
+    grid-area: d;
+    display: flex;
+    align-items: center;
+}
+
+#deleteButton button {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    width: 100%;
+    min-height: 2em;
+    font-size: 20px;
 }
