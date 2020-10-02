@@ -80,6 +80,18 @@ $updateBeer = '
     WHERE `id` = :id AND (`protected` IS null OR `protected` = 0);
 ';
 
+// Returns all beers, any linked breweries, and any linked locations, based on search terms
+$search = '
+    SELECT `beers`.`id` as `beer_id`, `beers`.`name` as `beer`, `abv`, `style`, `breweries`.`name` as `brewery`, `url`, `county`, `country`, `image`, `protected`
+    FROM `beers`
+        LEFT JOIN `breweries`
+        ON `beers`.`brewery_id` = `breweries`.`id`
+        LEFT JOIN `locations`
+        ON `breweries`.`location_id` = `locations`.`id`
+    WHERE `beers`.`name` LIKE :searchTerm
+        OR `breweries`.`name` LIKE :searchTerm;
+';
+
 // Create db connection
 $db = connectDB();
 // Query db for beers
@@ -217,4 +229,9 @@ if (isset($_POST['saveChanges'])) {
         $beers = queryDB($db, $getBeers);
         header('Location: beers.php');
     }
+}
+
+if (isset($_POST['search'])) {
+    $beers = search($db, $search, $_POST['searchTerm']);
+    $letters = getLetters($beers, 'beer');
 }

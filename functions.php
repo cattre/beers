@@ -183,3 +183,22 @@ function updateBeer(object $db, string $query, string $imageFile, string $id) {
         ':photo' => $photo
     ]);
 }
+
+/**
+ * Executes search query using term provided
+ *
+ * @param object $db
+ *                  Database object
+ * @param string $queryString
+ *                           Query to be executed
+ * @param string $search
+ *                      Search string
+ */
+function search(object $db, string $queryString, string $search) {
+    $query = $db->prepare($queryString);
+    $query->execute([
+        ':searchTerm' => '%' . $search . '%',
+    ]);
+
+    return $query->fetchAll();
+}
