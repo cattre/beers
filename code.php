@@ -231,7 +231,15 @@ if (isset($_POST['saveChanges'])) {
     }
 }
 
-if (isset($_POST['search'])) {
+if (isset($_POST['search']) && $_POST['searchTerm'] !== '') {
+    session_start();
+    $_SESSION['searchTerm'] = $_POST['searchTerm'];
     $beers = search($db, $search, $_POST['searchTerm']);
     $letters = getLetters($beers, 'beer');
+}
+
+if (isset($_POST['reset'])) {
+    session_start();
+    session_destroy();
+    header('Location: beers.php');
 }

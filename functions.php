@@ -188,11 +188,14 @@ function updateBeer(object $db, string $query, string $imageFile, string $id) {
  * Executes search query using term provided
  *
  * @param object $db
- *                  Database object
+ *                           Database object
  * @param string $queryString
  *                           Query to be executed
  * @param string $search
- *                      Search string
+ *                           Search string
+ *
+ * @return
+ *        Returns array of filtered items
  */
 function search(object $db, string $queryString, string $search) {
     $query = $db->prepare($queryString);

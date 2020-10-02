@@ -21,6 +21,8 @@ require_once 'code.php';
                 <form id='search' method='post'>
                     <label><input type='search' name='searchTerm' placeholder='Search by beer or brewery'></label>
                     <input type='submit' name='search' value='Search'>
+                    <input type='submit' name='reset' value='Reset'>
+                    <?php if (isset($_SESSION['searchTerm'])) { echo 'Filtering by: ' . $_SESSION['searchTerm']; } ?>
                 </form>
             <?php } ?>
             <a href='beers.php'>
