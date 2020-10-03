@@ -35,8 +35,8 @@ $getBreweries = '
 ';
 
 $getStyles = '
-    SELECT DISTINCT `style`
-    FROM `beers`
+    SELECT `style`
+    FROM `styles`
     ORDER BY `style` ASC;
 ';
 
