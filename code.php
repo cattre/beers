@@ -3,6 +3,8 @@
 require 'functions.php';
 require 'uploadFunctions.php';
 
+session_start();
+
 $beerFormVisibility = false;
 $breweryFormVisibility = false;
 $updateBeerFormVisibility = false;
@@ -94,8 +96,14 @@ $search = '
 
 // Create db connection
 $db = connectDB();
+
 // Query db for beers
-$beers = queryDB($db, $getBeers);
+if ($_SESSION['searchTerm'] !== '') {
+    $beers = search($db, $search, $_SESSION['searchTerm']);
+} else {
+    $beers = queryDB($db, $getBeers);
+}
+
 // Get section letters
 $letters = getLetters($beers, 'beer');
 // Get breweries
@@ -231,15 +239,14 @@ if (isset($_POST['saveChanges'])) {
     }
 }
 
-if (isset($_POST['search']) && $_POST['searchTerm'] !== '') {
-    session_start();
+// Action on selecting search button
+if (isset($_POST['searchTerm'])) {
     $_SESSION['searchTerm'] = $_POST['searchTerm'];
-    $beers = search($db, $search, $_POST['searchTerm']);
-    $letters = getLetters($beers, 'beer');
+    header('Location: beers.php');
 }
 
+// Action on selecting reset button
 if (isset($_POST['reset'])) {
-    session_start();
-    session_destroy();
+    $_SESSION['searchTerm'] = '';
     header('Location: beers.php');
 }

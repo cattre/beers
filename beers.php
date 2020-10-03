@@ -1,6 +1,6 @@
 <?php
 
-require_once 'code.php';
+require 'code.php';
 
 ?>
 
@@ -18,11 +18,16 @@ require_once 'code.php';
         <div class='bg'></div>
 		<header>
             <?php if ($mainVisibility) { ?>
-                <form id='search' method='post'>
-                    <label><input type='search' name='searchTerm' placeholder='Search by beer or brewery'></label>
-                    <input type='submit' name='search' value='Search'>
-                    <input type='submit' name='reset' value='Reset'>
-                    <?php if (isset($_SESSION['searchTerm'])) { echo 'Filtering by: ' . $_SESSION['searchTerm']; } ?>
+                <form id='searchForm' method='post'>
+                    <div class='searchBox'>
+                        <label><input type='search' name='searchTerm' placeholder='Search by beer or brewery'></label>
+                        <input type='submit' name='search' value='Search'>
+                    </div>
+                    <div class='filterText'>
+                        <?php if ($_SESSION['searchTerm'] !== '') { echo 'Filtering by: ' . $_SESSION['searchTerm']; ?>
+                            <input type='submit' name='reset' value='Clear'>
+                        <?php } ?>
+                    </div>
                 </form>
             <?php } ?>
             <a href='beers.php'>
