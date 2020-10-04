@@ -60,7 +60,7 @@ require 'code.php';
                         <label>URL <input type='url' name='url'></label>
                         <div class='formButtons'>
                             <button type='submit' name='backOne' value='backOne'>Back</button>
-                            <button type='submit' name='saveBrewery' value='saveBeer'>Save</button>
+                            <button type='submit' name='saveBrewery' value='saveBrewery'>Save</button>
                         </div>
                     </form>
                 </div>
@@ -91,7 +91,7 @@ require 'code.php';
                                     Select style
                                 </option>
                                 <?php foreach ($styles as $style): ?>
-                                    <option value='<?php echo $style['style']; ?>'>
+                                    <option value='<?php echo $style['id']; ?>'>
                                         <?php echo $style['style']; ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -133,7 +133,7 @@ require 'code.php';
                                     Select style
                                 </option>
                                 <?php foreach ($styles as $style): ?>
-                                    <option value='<?php echo $style['style']; ?>' <?php if(isset($beer) && $beer['style'] === $style['style']) { echo 'selected'; } ?>>
+                                    <option value='<?php echo $style['id']; ?>' <?php if(isset($beer) && $beer['style_id'] === $style['id']) { echo 'selected'; } ?>>
                                         <?php echo $style['style']; ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -165,11 +165,11 @@ require 'code.php';
                                         <article class='beer'>
                                             <div class='summary'>
                                                 <h2><?php echo $beer['beer']; ?></h2>
-                                                <?php echo getSummary($beer)?>
+                                                <?php echo getSummary($beer); ?>
                                                 <br>
-                                                <a target='_blank' href='<?php echo $beer['url'] ?>'>Visit website</a>
+                                                <a target='_blank' href='<?php echo $beer['url']; ?>'>Visit website</a>
                                             </div>
-                                            <img src='<?php echo $beer['image'] ?>' alt='Beer photo'>
+                                            <img src='<?php echo $beer['image']; ?>' alt='Beer photo'>
                                             <details>
                                                 <br>
                                                 <?php echo "Style: {$beer['style']}"; ?>
@@ -178,8 +178,8 @@ require 'code.php';
                                             </details>
                                             <?php if (!$beer['protected']) { ?>
                                             <form id='beerButtons' method='post'>
-                                                <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id'] ?>'>Update beer</button>
-                                                <button type='submit' name='delete' value='<?php echo $beer['beer_id'] ?>'>Delete beer</button>
+                                                <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id']; ?>'>Update beer</button>
+                                                <button type='submit' name='delete' value='<?php echo $beer['beer_id']; ?>'>Delete beer</button>
                                             </form>
                                             <?php } ?>
                                         </article>
