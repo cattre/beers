@@ -244,12 +244,17 @@ if (isset($_POST['saveChanges'])) {
             $breweryFormVisibility = false;
             $updateBeerFormVisibility = true;
         } else {
-            updateBeer($db, $updateBeer, '', $_POST['id']);
+            $beer = getBeer($db, $getBeer, $_POST['id']);
+            if (isset($beer['image']) && is_writable($beer['image']) && $beer['image'] != 'media/placeholder.jpg') {
+                unlink($beer['image']);
+            }
+            updateBeer($db, $updateBeer, $targetFile, $_POST['id']);
             $beers = queryDB($db, $getBeers);
             header('Location: beers.php');
         }
     } else {
-        updateBeer($db, $updateBeer, '', $_POST['id']);
+        $beer = getBeer($db, $getBeer, $_POST['id']);
+        updateBeer($db, $updateBeer, $beer['image'], $_POST['id']);
         $beers = queryDB($db, $getBeers);
         header('Location: beers.php');
     }
