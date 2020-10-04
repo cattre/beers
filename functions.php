@@ -124,14 +124,16 @@ function addBrewery(object $db, string $queryString) {
  * Deletes selected beer
  *
  * @param object $db
- *                  Database object
+ *                           Database object
  * @param string $queryString
  *                           Delete item query
+ * @param string $id
+ *                  Item id to filter query
  */
-function deleteBeer(object $db, string $queryString) {
+function deleteBeer(object $db, string $queryString, string $id) {
     $query = $db->prepare($queryString);
     $query->execute([
-        ':id' => $_POST['delete'],
+        ':id' => $id,
     ]);
 }
 
@@ -163,7 +165,7 @@ function getBeer(object $db, string $query, string $id) :array {
  * @param string $query
  *                     Query to execute
  * @param string $imageFile
- *                         Desination image file
+ *                         Destination image file
  * @param string $id
  *                  Item id to filter query
  */

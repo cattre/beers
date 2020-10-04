@@ -71,6 +71,7 @@ require 'code.php';
                 <div class='addContainer'>
                     <h1>Add a new beer</h1>
                     <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                        <span class='error'><?php echo $imageError;?></span>
                         <label>Name (required)<input type='text' name='beer'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <label>Brewery <select name='brewery'>
@@ -98,7 +99,6 @@ require 'code.php';
                             </select></label>
                         <label>ABV <input type='number' min='0' max='20' step='any' name='abv'></label>
                         <label>Photo <input type='file' name='photo'></label>
-                        <span class='error'><?php echo $imageError;?></span>
                         <div class='formButtons'>
                             <button type='submit' name='back' value='back'>Back to list</button>
                             <button type='submit' name='saveBeer' value='saveBeer'>Save</button>
@@ -179,7 +179,7 @@ require 'code.php';
                                             <?php if (!$beer['protected']) { ?>
                                             <form id='beerButtons' method='post'>
                                                 <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id']; ?>'>Update beer</button>
-                                                <button type='submit' name='delete' value='<?php echo $beer['beer_id']; ?>'>Delete beer</button>
+                                                <button type='submit' name='deleteBeer' value='<?php echo $beer['beer_id']; ?>'>Delete beer</button>
                                             </form>
                                             <?php } ?>
                                         </article>

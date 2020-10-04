@@ -64,7 +64,7 @@ function checkFileSize(string $error) :string {
 function checkFileType(string $error, string $fileType) :string {
     if ($error === '' && $fileType != 'jpg' && $fileType != 'png' && $fileType != 'jpeg'
         && $fileType != 'gif') {
-        $error = 'Only JPG, JPEG, PNG & GIF iamge files are allowed.';
+        $error = 'Only JPG, JPEG, PNG & GIF image files are allowed.';
     }
     return $error;
 }

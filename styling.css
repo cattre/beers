@@ -231,7 +231,7 @@ details {
     color: #FFFFFF;
 }
 
-#beerButtons button[name='delete'] {
+#beerButtons button[name='deleteBeer'] {
     background-color: #FF0000;
     color: #FFFFFF;
 }

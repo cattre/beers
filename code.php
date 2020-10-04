@@ -158,7 +158,7 @@ if (isset($_POST['saveBeer'])) {
             $mainVisibility = false;
             $breweryFormVisibility = false;
         } else {
-            addBeer($db, $addBeer, '');
+            addBeer($db, $addBeer, $targetFile);
             $beers = queryDB($db, $getBeers);
             header('Location: beers.php');
             $beerFormVisibility = false;
@@ -206,8 +206,12 @@ if (isset($_POST['saveBrewery'])) {
 }
 
 // Action on selecting delete button
-if (isset($_POST['delete'])) {
-    deleteBeer($db, $deleteBeer);
+if (isset($_POST['deleteBeer'])) {
+    $beer = getBeer($db, $getBeer, $_POST['deleteBeer']);
+    if (isset($beer['image']) && is_writable($beer['image']) && $beer['image'] != 'media/placeholder.jpg') {
+        unlink($beer['image']);
+    }
+    deleteBeer($db, $deleteBeer, $_POST['deleteBeer']);
     header('Location: beers.php');
 }
 
