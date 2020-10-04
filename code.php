@@ -14,7 +14,7 @@ $imageError = '';
 
 // Image upload variables
 if ($_FILES) {
-    $targetDir = 'media' . DIRECTORY_SEPARATOR;
+    $targetDir = realpath('media/');
     $targetFile = $targetDir . basename($_FILES['photo']['name']);
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 }
@@ -96,7 +96,7 @@ $search = '
         LEFT JOIN `locations`
         ON `breweries`.`location_id` = `locations`.`id`
         LEFT JOIN `styles`
-        ON `beers`.`style_id` = `styles`.`id`;
+        ON `beers`.`style_id` = `styles`.`id`
     WHERE `beers`.`name` LIKE :searchTerm
         OR `breweries`.`name` LIKE :searchTerm
         OR `style` LIKE :searchTerm
