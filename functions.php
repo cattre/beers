@@ -1,6 +1,33 @@
 <?php
 
 /**
+ * Sets display of page elements based on request
+ *
+ * @param string $displayType
+ *                           Display type requested
+ *
+ * @return array
+ *              Display settings for each element
+ */
+function setDisplay(string $displayType) :array {
+    $display = [];
+    switch ($displayType) {
+        case 'list' :
+            $display = ['beerForm' => false, 'breweryForm' => false, 'beerList' => true];
+            break;
+
+        case 'beer' :
+            $display = ['beerForm' => true, 'breweryForm' => false, 'beerList' => false];
+            break;
+
+        case 'brewery' :
+            $display = ['beerForm' => false, 'breweryForm' => true, 'beerList' => false];
+            break;
+    }
+    return $display;
+}
+
+/**
  * Creates connection to database
  *
  * @return object

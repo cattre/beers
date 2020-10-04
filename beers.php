@@ -17,7 +17,7 @@ require 'code.php';
 	<body>
         <div class='bg'></div>
 		<header>
-            <?php if ($mainVisibility) { ?>
+            <?php if ($display['beerList'] === true) { ?>
                 <form id='searchForm' method='post'>
                     <div class='searchBox'>
                         <label><input type='search' name='searchTerm' placeholder='Search by beer or brewery'></label>
@@ -34,13 +34,13 @@ require 'code.php';
                 A world of beer
             </a>
             <h3>(starting in the UK)</h3>
-            <?php if ($mainVisibility) { ?>
+            <?php if ($display['beerList'] === true) { ?>
                 <form id='addBeerButton' method='post'>
                     <button type='submit' name='addBeer' value='addBeer'>Add a beer</button>
                 </form>
             <?php } ?>
         </header>
-        <?php if ($breweryFormVisibility) { ?>
+        <?php if ($display['breweryForm'] === true) { ?>
             <section class='addPage'>
                 <div class='addContainer'>
                     <h1>Add a new brewery</h1>
@@ -66,54 +66,13 @@ require 'code.php';
                 </div>
             </section>
         <?php } ?>
-        <?php if ($beerFormVisibility) { ?>
+        <?php if ($display['beerForm'] === true) { ?>
             <section class='addPage'>
                 <div class='addContainer'>
-                    <h1>Add a new beer</h1>
-                    <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
-                        <span class='error'><?php echo $imageError;?></span>
-                        <label>Name (required)<input type='text' name='beer'></label>
-                        <span class='error'><?php echo $nameError;?></span>
-                        <label>Brewery <select name='brewery'>
-                                <?php if (!isset($beer)) { ?>
-                                    <option value='' selected hidden>
-                                        Select brewery
-                                    </option>
-                                <?php } ?>
-                                <?php foreach ($breweries as $brewery): ?>
-                                    <option value='<?php echo $brewery['id']; ?>' >
-                                        <?php echo $brewery['brewery']; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select></label>
-                        <button type='submit' name='addBrewery' value='addBrewery'>Add new brewery</button>
-                        <label>Style <select name='style'>
-                                <option value='' selected hidden>
-                                    Select style
-                                </option>
-                                <?php foreach ($styles as $style): ?>
-                                    <option value='<?php echo $style['id']; ?>'>
-                                        <?php echo $style['style']; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select></label>
-                        <label>ABV <input type='number' min='0' max='20' step='any' name='abv'></label>
-                        <label>Photo <input type='file' name='photo'></label>
-                        <div class='formButtons'>
-                            <button type='submit' name='back' value='back'>Back to list</button>
-                            <button type='submit' name='saveBeer' value='saveBeer'>Save</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        <?php } ?>
-        <?php if ($updateBeerFormVisibility) { ?>
-            <section class='addPage'>
-                <div class='addContainer'>
-                    <h1>Update beer</h1>
-                    <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
-                        <label hidden>ID <input type='number' name='id' value='<?php echo $beer['beer_id']; ?>'></label>
-                        <label>Name (required)<input type='text' name='beer' value='<?php echo $beer['beer']; ?>'></label>
+                    <h1><?php if(isset($_POST['addBeer'])) { echo 'Add a new beer'; } else { echo 'Update beer'; } ?></h1>
+                    <form id='beerForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                        <label hidden>ID <input type='number' name='id' value='<?php if(isset($beer)) { echo $beer['beer_id']; } ?>'></label>
+                        <label>Name (required)<input type='text' name='beer' value='<?php if(isset($beer)) { echo $beer['beer']; } ?>'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <label>Brewery <select name='brewery'>
                                 <?php if (!isset($beer)) { ?>
@@ -138,18 +97,18 @@ require 'code.php';
                                     </option>
                                 <?php endforeach; ?>
                             </select></label>
-                        <label>ABV <input type='number' min='0' max='20' step='any' name='abv' value='<?php echo $beer['abv']; ?>'></label>
+                        <label>ABV <input type='number' min='0' max='20' step='any' name='abv' value='<?php if(isset($beer)) {  echo $beer['abv']; } ?>'></label>
                         <label>Photo <input type='file' name='photo'></label>
                         <span class='error'><?php echo $imageError;?></span>
                         <div class='formButtons'>
                             <button type='submit' name='back' value='back'>Back to list</button>
-                            <button type='submit' name='saveChanges' value='saveChanges'>Save changes</button>
+                            <button type='submit' name='save' value='save'><?php if(isset($_POST['addBeer'])) { echo 'Create new beer'; } else { echo 'Save changes'; } ?></button>
                         </div>
                     </form>
                 </div>
             </section>
         <?php } ?>
-        <?php if ($mainVisibility) { ?>
+        <?php if ($display['beerList'] === true) { ?>
         <main>
             <?php if (!isset($beers)) {
                 echo '<h1>No beers found</h1>';

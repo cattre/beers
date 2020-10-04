@@ -110,11 +110,11 @@ button:hover {
     grid-area: a;
 }
 
-#addForm {
+#beerForm {
     grid-area: b;
 }
 
-#addForm input, select {
+#beerForm input, select {
     display: block;
     height: 50px;
     width: 100%;
@@ -128,7 +128,7 @@ button[name='addBrewery'] {
     margin-bottom: 10px;
 }
 
-#addForm input:hover, select:hover {
+#beerForm input:hover, select:hover {
     border-color: #33cc33;
 }
 
