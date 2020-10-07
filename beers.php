@@ -128,7 +128,9 @@ require 'code.php';
                                                 <br>
                                                 <a target='_blank' href='<?php echo $beer['url']; ?>'>Visit website</a>
                                             </div>
-                                            <img src='<?php echo $beer['image']; ?>' alt='Beer photo'>
+                                            <figure class = 'image'>
+                                                <img src='<?php echo $beer['image']; ?>' alt='Beer photo'>
+                                            </figure>
                                             <details>
                                                 <br>
                                                 <?php echo "Style: {$beer['style']}"; ?>
