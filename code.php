@@ -22,12 +22,16 @@ if ($_FILES) {
 $db = connectDB();
 
 // Query db for beers
-if ($_SESSION['searchTerm'] !== '') {
-    $beers = search($db, $search, $_SESSION['searchTerm']);
-} else {
-    $beers = queryDB($db, $getBeers);
+if (isset($_SESSION['searchTerm'])) {
+    if ($_SESSION['searchTerm'] !== '') {
+        $beers = search($db, $search, $_SESSION['searchTerm']);
+    } else {
+        $beers = queryDB($db, $getBeers);
+    }
 }
 
+//Get beers
+$beers = queryDB($db, $getBeers);
 // Get section letters
 $letters = getLetters($beers, 'beer');
 // Get breweries
