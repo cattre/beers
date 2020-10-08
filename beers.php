@@ -24,7 +24,7 @@ require 'code.php';
                         <input type='submit' name='search' value='Search'>
                     </div>
                     <div class='filterText'>
-                        <?php if ($_SESSION['searchTerm'] !== '') { echo 'Filtering by: ' . $_SESSION['searchTerm']; ?>
+                        <?php if (isset($_SESSION['searchTerm']) && $_SESSION['searchTerm'] !== '') { echo 'Filtering by: ' . $_SESSION['searchTerm']; ?>
                             <input type='submit' name='reset' value='Clear'>
                         <?php } ?>
                     </div>
