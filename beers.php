@@ -131,12 +131,12 @@ require 'code.php';
                                             <figure class = 'image'>
                                                 <img src='<?php echo $beer['image']; ?>' alt='Beer photo'>
                                             </figure>
-                                            <details>
+                                            <div class='details'>
                                                 <br>
                                                 <?php echo "Style: {$beer['style']}"; ?>
                                                 <br>
                                                 <?php echo "ABV: {$beer['abv']}"; ?>
-                                            </details>
+                                            </div>
                                             <?php if (!$beer['protected']) { ?>
                                             <form id='beerButtons' method='post'>
                                                 <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id']; ?>'>Update beer</button>
