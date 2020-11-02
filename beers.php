@@ -45,6 +45,7 @@ require 'code.php';
                 <div class='addContainer'>
                     <h1>Add a new brewery</h1>
                     <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                        <label hidden>ID <input type='number' name='id' value='<?php if(isset($beer)) { echo $beer['beer_id']; } ?>'></label>
                         <label>Name (required)<input type='text' name='brewery'></label>
                         <span class='error'><?php echo $nameError;?></span>
                         <label>Location <select name='location'>
@@ -69,8 +70,8 @@ require 'code.php';
         <?php if ($display['beerForm'] === true) { ?>
             <section class='addPage'>
                 <div class='addContainer'>
-                    <h1><?php if(isset($_POST['addBeer'])) { echo 'Add a new beer'; } else { echo 'Update beer'; } ?></h1>
-                    <form id='beerForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
+                    <h1><?php if(isset($beer)) { echo 'Update beer'; } else { echo 'Add a new beer'; } ?></h1>
+                    <form id='addForm' method='post' enctype='multipart/form-data' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>'>
                         <label hidden>ID <input type='number' name='id' value='<?php if(isset($beer)) { echo $beer['beer_id']; } ?>'></label>
                         <label>Name (required)<input type='text' name='beer' value='<?php if(isset($beer)) { echo $beer['beer']; } ?>'></label>
                         <span class='error'><?php echo $nameError;?></span>
@@ -124,7 +125,7 @@ require 'code.php';
                                             <article class='beer'>
                                                 <div class='summary'>
                                                     <h2><?php echo $beer['beer']; ?></h2>
-                                                    <?php echo getSummary($beer); ?>
+                                                    <div><?php echo getSummary($beer); ?></div>
                                                     <a target='_blank' href='<?php echo $beer['url']; ?>'>Visit website</a>
                                                 </div>
                                                 <figure class = 'image'>

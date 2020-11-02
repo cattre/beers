@@ -111,11 +111,17 @@ if (isset($_POST['saveBeer'])) {
 
 // Action on selecting add a new brewery button
 if (isset($_POST['addBrewery'])) {
+    if (isset($_POST['id'])) {
+        $beer = getBeer($db, $getBeer, $_POST['id']);
+    }
     $display = setDisplay('brewery');
 }
 
 // Action on going back from add new brewery page
 if (isset($_POST['backOne'])) {
+    if (isset($_POST['id'])) {
+        $beer = getBeer($db, $getBeer, $_POST['id']);
+    }
     $display = setDisplay('beer');
 }
 
@@ -128,6 +134,9 @@ if (isset($_POST['saveBrewery'])) {
     } else {
         addBrewery($db, $addBrewery);
         $breweries = queryDB($db, $getBreweries);
+        if (isset($_POST['id'])) {
+            $beer = getBeer($db, $getBeer, $_POST['id']);
+        }
         $display = setDisplay('beer');
     }
 }
