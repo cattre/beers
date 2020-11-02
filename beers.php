@@ -1,6 +1,7 @@
 <?php
 
 require 'code.php';
+var_dump($_POST);
 
 ?>
 

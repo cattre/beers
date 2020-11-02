@@ -54,7 +54,7 @@ if (isset($_POST['back'])) {
 }
 
 // Action on saving a beer
-if (isset($_POST['saveBeer'])) {
+if (isset($_POST['save'])) {
     // No beer name provided
     if (empty($_POST['beer'])) {
         $nameError = 'Please enter a name';
@@ -111,7 +111,7 @@ if (isset($_POST['saveBeer'])) {
 
 // Action on selecting add a new brewery button
 if (isset($_POST['addBrewery'])) {
-    if (isset($_POST['id'])) {
+    if (isset($_POST['id']) && $_POST['id'] != '') {
         $beer = getBeer($db, $getBeer, $_POST['id']);
     }
     $display = setDisplay('brewery');
@@ -119,7 +119,7 @@ if (isset($_POST['addBrewery'])) {
 
 // Action on going back from add new brewery page
 if (isset($_POST['backOne'])) {
-    if (isset($_POST['id'])) {
+    if (isset($_POST['id']) && $_POST['id'] != '') {
         $beer = getBeer($db, $getBeer, $_POST['id']);
     }
     $display = setDisplay('beer');
@@ -134,7 +134,7 @@ if (isset($_POST['saveBrewery'])) {
     } else {
         addBrewery($db, $addBrewery);
         $breweries = queryDB($db, $getBreweries);
-        if (isset($_POST['id'])) {
+        if (isset($_POST['id']) && $_POST['id'] != '') {
             $beer = getBeer($db, $getBeer, $_POST['id']);
         }
         $display = setDisplay('beer');
