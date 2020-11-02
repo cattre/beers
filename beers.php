@@ -139,8 +139,10 @@ var_dump($_POST);
                                                     <?php echo "ABV: {$beer['abv']}"; ?>
                                                 </div>
                                                 <?php if (!$beer['protected']) { ?>
-                                                <form id='beerButtons' method='post'>
+                                                <form class='beerButtons updateButton' method='post'>
                                                     <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id']; ?>'>Update beer</button>
+                                                </form>
+                                                <form class='beerButtons deleteButton' method='post'>
                                                     <button type='submit' name='deleteBeer' value='<?php echo $beer['beer_id']; ?>'>Delete beer</button>
                                                 </form>
                                                 <?php } ?>

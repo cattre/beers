@@ -22,6 +22,8 @@ body, html {
 
 header {
     position: fixed;
+    z-index: 1;
+    top: 0;
     width: 100%;
     display: grid;
     grid-template-columns: 3fr 6fr 3fr;
@@ -182,7 +184,6 @@ main {
     flex-shrink: 1;
     flex-grow: 1;
     flex-basis: 10%;
-    /*min-width: 25vw;*/
     max-width: 400px;
     background-color: #FFFFFF;
     display: grid;
@@ -190,7 +191,7 @@ main {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
     'a a a'
-    '. b d'
+    'd b e'
     '. c .';
     margin: 10px;
 }
@@ -213,18 +214,15 @@ main {
 
 .image {
     grid-area: b;
-    /*max-width: 100%;*/
-    /*height: 20%;*/
     width: 200px;
     height: 200px;
+    margin: 0;
     text-align: center;
     overflow: hidden;
     position: relative;
 }
 
 .image img {
-    /*max-width: 100%;*/
-    /*object-fit: contain;*/
     position: absolute;
     max-width: 100%;
     width: 100%;
@@ -241,26 +239,34 @@ main {
     height: 150px;
 }
 
-#beerButtons {
-    grid-area: d;
+.beerButtons {
+    margin: 10px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-#beerButtons button {
+.beerButtons button {
     width: 100%;
     min-height: 2em;
     font-size: 20px;
 }
 
-#beerButtons button[name='addBeer'], #beerButtons button[name='updateBeer'] {
+.updateButton {
+    grid-area: d;
+}
+
+.deleteButton {
+    grid-area: e;
+}
+
+.beerButtons button[name='addBeer'], .beerButtons button[name='updateBeer'] {
     background-color: #33cc33;
     color: #FFFFFF;
 }
 
-#beerButtons button[name='deleteBeer'] {
+.beerButtons button[name='deleteBeer'] {
     background-color: #FF0000;
     color: #FFFFFF;
 }
