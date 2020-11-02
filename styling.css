@@ -156,7 +156,7 @@ button[name='back'], button[name='backOne'] {
     color: #FF0000;
 }
 
-button[name='saveBeer'], button[name='saveBrewery'], button[name='saveChanges'] {
+button[name='save'], button[name='saveBrewery'], button[name='saveChanges'] {
     background-color: #33cc33;
     border-color: #33cc33;
     color: #FFFFFF;

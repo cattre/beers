@@ -28,18 +28,6 @@ function setDisplay(string $displayType) :array {
 }
 
 /**
- * Creates connection to database
- *
- * @return object
- *               Database object
- */
-function connectDB() :object {
-    $db = new PDO ('mysql:host=db; dbname=beers', 'root', 'password');
-    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    return $db;
-}
-
-/**
  * Queries database and returns results
  *
  * @param object $db

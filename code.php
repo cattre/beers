@@ -3,6 +3,7 @@
 require 'functions.php';
 require 'uploadFunctions.php';
 require 'queries.php';
+require '../connectDB.php';
 
 session_start();
 

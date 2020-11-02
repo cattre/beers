@@ -109,49 +109,48 @@ require 'code.php';
             </section>
         <?php } ?>
         <?php if ($display['beerList'] === true) { ?>
-        <main>
-            <?php if (!isset($beers)) {
-                echo '<h1>No beers found</h1>';
-            } else {
-                if (isset($letters)) {
-                    foreach ($letters as $letter): ?>
-                        <section class='letter'>
-                            <h1><?php echo $letter ?></h1>
-                            <div class ='beers'>
-                                <?php foreach ($beers as $beer):
-                                    // Create entry for beer within section if first letter matches
-                                    if ($beer['beer'][0] === $letter) { ?>
-                                        <article class='beer'>
-                                            <div class='summary'>
-                                                <h2><?php echo $beer['beer']; ?></h2>
-                                                <?php echo getSummary($beer); ?>
-                                                <br>
-                                                <a target='_blank' href='<?php echo $beer['url']; ?>'>Visit website</a>
-                                            </div>
-                                            <figure class = 'image'>
-                                                <img src='<?php echo $beer['image']; ?>' alt='Beer photo'>
-                                            </figure>
-                                            <div class='details'>
-                                                <br>
-                                                <?php echo "Style: {$beer['style']}"; ?>
-                                                <br>
-                                                <?php echo "ABV: {$beer['abv']}"; ?>
-                                            </div>
-                                            <?php if (!$beer['protected']) { ?>
-                                            <form id='beerButtons' method='post'>
-                                                <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id']; ?>'>Update beer</button>
-                                                <button type='submit' name='deleteBeer' value='<?php echo $beer['beer_id']; ?>'>Delete beer</button>
-                                            </form>
-                                            <?php } ?>
-                                        </article>
-                                    <?php }
-                                endforeach; ?>
-                            </div>
-                        </section>
-                    <?php endforeach;
-                }
-            } ?>
-		</main>
+            <main>
+                <?php if (!isset($beers)) {
+                    echo '<h1>No beers found</h1>';
+                } else {
+                    if (isset($letters)) {
+                        foreach ($letters as $letter): ?>
+                            <section class='letter'>
+                                <h1><?php echo $letter ?></h1>
+                                <div class ='beers'>
+                                    <?php foreach ($beers as $beer):
+                                        // Create entry for beer within section if first letter matches
+                                        if ($beer['beer'][0] === $letter) { ?>
+                                            <article class='beer'>
+                                                <div class='summary'>
+                                                    <h2><?php echo $beer['beer']; ?></h2>
+                                                    <?php echo getSummary($beer); ?>
+                                                    <a target='_blank' href='<?php echo $beer['url']; ?>'>Visit website</a>
+                                                </div>
+                                                <figure class = 'image'>
+                                                    <img src='<?php echo $beer['image']; ?>' alt='Beer photo'>
+                                                </figure>
+                                                <div class='details'>
+                                                    <br>
+                                                    <?php echo "Style: {$beer['style']}"; ?>
+                                                    <br>
+                                                    <?php echo "ABV: {$beer['abv']}"; ?>
+                                                </div>
+                                                <?php if (!$beer['protected']) { ?>
+                                                <form id='beerButtons' method='post'>
+                                                    <button type='submit' name='updateBeer' value='<?php echo $beer['beer_id']; ?>'>Update beer</button>
+                                                    <button type='submit' name='deleteBeer' value='<?php echo $beer['beer_id']; ?>'>Delete beer</button>
+                                                </form>
+                                                <?php } ?>
+                                            </article>
+                                        <?php }
+                                    endforeach; ?>
+                                </div>
+                            </section>
+                        <?php endforeach;
+                    }
+                } ?>
+            </main>
         <?php } ?>
 		<footer>
 
