@@ -50,7 +50,7 @@ if (isset($_POST['addBeer'])) {
 
 // Action on going back from add new beer page
 if (isset($_POST['back'])) {
-    header('Location: beers.php');
+    header('Location: index.php');
 }
 
 // Action on saving a beer
@@ -77,7 +77,7 @@ if (isset($_POST['save'])) {
             if (empty($_POST['id'])) {
                 addBeer($db, $addBeer, $targetFile);
                 $beers = queryDB($db, $getBeers);
-                header('Location: beers.php');
+                header('Location: index.php');
             }
             // Update existing beer
             else {
@@ -87,7 +87,7 @@ if (isset($_POST['save'])) {
                 }
                 updateBeer($db, $updateBeer, $targetFile, $_POST['id']);
                 $beers = queryDB($db, $getBeers);
-                header('Location: beers.php');
+                header('Location: index.php');
             }
         }
     }
@@ -97,14 +97,14 @@ if (isset($_POST['save'])) {
         if (empty($_POST['id'])) {
             addBeer($db, $addBeer, '');
             $beers = queryDB($db, $getBeers);
-            header('Location: beers.php');
+            header('Location: index.php');
         }
         // Update existing beer
         else {
             $beer = getBeer($db, $getBeer, $_POST['id']);
             updateBeer($db, $updateBeer, $beer['image'], $_POST['id']);
             $beers = queryDB($db, $getBeers);
-            header('Location: beers.php');
+            header('Location: index.php');
         }
     }
 }
@@ -148,7 +148,7 @@ if (isset($_POST['deleteBeer'])) {
         unlink($beer['image']);
     }
     deleteBeer($db, $deleteBeer, $_POST['deleteBeer']);
-    header('Location: beers.php');
+    header('Location: index.php');
 }
 
 // Action on selecting update beer button
@@ -160,11 +160,11 @@ if (isset($_POST['updateBeer'])) {
 // Action on selecting search button
 if (isset($_POST['searchTerm'])) {
     $_SESSION['searchTerm'] = $_POST['searchTerm'];
-    header('Location: beers.php');
+    header('Location: index.php');
 }
 
 // Action on selecting reset button
 if (isset($_POST['reset'])) {
     $_SESSION['searchTerm'] = '';
-    header('Location: beers.php');
+    header('Location: index.php');
 }

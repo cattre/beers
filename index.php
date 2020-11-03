@@ -31,7 +31,7 @@ var_dump($_POST);
                     </div>
                 </form>
             <?php } ?>
-            <a href='beers.php'>
+            <a href='index.php'>
                 A world of beer
             </a>
             <h3>(starting in the UK)</h3>
