@@ -20,7 +20,7 @@ if ($_FILES) {
 }
 
 // Create db connection
-$db = connectDB();
+$db = connectDB('beers');
 
 // Query db for beers
 if (isset($_SESSION['searchTerm'])) {
